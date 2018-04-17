@@ -1,7 +1,2 @@
 ibis.constellation
-ibis.constellation.impl
-ibis.constellation.impl.pool
-ibis.constellation.impl.pool.communication
-ibis.constellation.impl.pool.communication.ibis
-ibis.constellation.impl.util
 ibis.constellation.util
