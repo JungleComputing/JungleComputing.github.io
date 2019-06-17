@@ -1,0 +1,1295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-06-17 Mon 11:54 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Emitting code</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Emitting code</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org36da40f">1. Introduction</a></li>
+<li><a href="#org3a9e279">2. External interface</a></li>
+<li><a href="#orgd3f66a8">3. The <code>emit</code> macro</a></li>
+<li><a href="#orgb978167">4. Processing forms</a></li>
+<li><a href="#org1996546">5. Processing line-specs</a></li>
+<li><a href="#orgac38c07">6. Creating the output</a></li>
+<li><a href="#orgbde5cbb">7. Breaking the lines</a></li>
+<li><a href="#org2cbe8ad">8. The <code>emit-list</code> function</a></li>
+<li><a href="#org3ea1213">9. Split lines</a></li>
+<li><a href="#orgd0d9511">10. Testing</a></li>
+<li><a href="#org12e87d8">11. Copying </a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org36da40f" class="outline-2">
+<h2 id="org36da40f"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This package contains functionality to pretty-print code.  It is licensed under
+GPL version 3, see Sec. <a href="#org2bcb39c">11</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3a9e279" class="outline-2">
+<h2 id="org3a9e279"><span class="section-number-2">2</span> External interface</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The code emitter exports two functions: <code>emit</code> and <code>emit-list</code>.  The <code>emit</code>
+function takes as input several strings that may have <code>~a</code> parameters.  Each
+<code>~a</code> paramater in the string should have a corresponding parameter.  An
+example is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(emit <span style="color: #8b2252;">"void ~a(~a) {"</span> funcname parameter
+      <span style="color: #8b2252;">"    ~a"</span> statements
+      <span style="color: #8b2252;">"}"</span>)
+</pre>
+</div>
+
+<p>
+All statements in <code>statements</code> will be indented properly.
+</p>
+
+<p>
+The following example shows how the <code>emit-list</code> function should be used:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(emit-list some-list)
+(emit-list some-list <span style="color: #483d8b;">:nr-lines</span> 2)
+(emit-list some-list <span style="color: #483d8b;">:separator</span> <span style="color: #8b2252;">", "</span>)
+</pre>
+</div>
+
+<p>
+The first function emits each element of list <code>some-list</code> on a separate line,
+indented as the indentation should be.  The second example, does the same but
+leaves a blank line in between.  The third example emits a list without
+newlines but with the separator ", " in between.
+</p>
+
+<p>
+In case something is wrong, it is necessary to reset the code-emitter:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(reset-code-emitter)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd3f66a8" class="outline-2">
+<h2 id="orgd3f66a8"><span class="section-number-2">3</span> The <code>emit</code> macro</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Typical input for the <code>emit</code> macro is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(emit <span style="color: #8b2252;">"void ~a(~a) {"</span> (f) (args) <span style="color: #8b2252;">" ~a"</span> (code))
+</pre>
+</div>
+
+<p>
+Functions such as <code>f</code>, <code>args</code>, and <code>code</code> can also contain <code>emit</code> statements.
+Since the output can only be fully generated when all <code>emit</code> statements have
+been executed, the last executing <code>emit</code> call (which is also the first being
+called), should be responsible for creating the final output, joining all the
+lines together.  This means that <code>emit</code> has to be a macro to control the flow
+of execution.  The first <code>emit</code> call has to be registered as the <code>emit</code>
+responsible for joining, after which all emits can happen in function call
+order.  This happens by registering <code>responsible-for-join</code> locally and by
+calling <code>(list ,@forms)</code>, which ensures that all other emits are executed in
+function call order.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defmacro</span> <span style="color: #0000ff;">emit</span> (<span style="color: #228b22;">&amp;rest</span> forms)
+  (with-gensyms (responsible-for-join result)
+    (<span style="color: #a020f0;">let</span> ((forms (split-lines-with-spec forms)))
+      (<span style="color: #a020f0;">dolist</span> (i forms) (check-form-statically i))
+      `(<span style="color: #a020f0;">let</span> ((,responsible-for-join (toggle-responsible-for-join))
+             (,result (process-forms (list ,@forms))))
+         (create-emit-output ,responsible-for-join ,result)))))
+</pre>
+</div>
+
+<p>
+Registering as first <code>emit</code> happens by means of the following code:
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*responsible-for-join*</span> t)
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">toggle-responsible-for-join</span> ()
+  (<span style="color: #a020f0;">cond</span> (*responsible-for-join*
+         (setf *responsible-for-join* nil)
+         t)
+        (t
+         nil)))
+</pre>
+</div>
+
+<p>
+If code fails, it is possible to reset the code-emitter with the following
+function:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">reset-code-emitter</span> ()
+  (setf *responsible-for-join* t))
+</pre>
+</div>
+
+<p>
+In the <code>emit</code> macro we want to treat each line separately, but the macro
+contains a list of more than one string with its spec (for example "void ~a")
+with each its arguments.  The following function splits these specifications by
+making a list that starts with the symbol <code>list</code> for each line:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">eval-when</span> (<span style="color: #483d8b;">:compile-toplevel</span> <span style="color: #483d8b;">:load-toplevel</span>)
+  (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">split-lines-with-spec</span> (l)
+    (<span style="color: #a020f0;">let</span> ((result nil))
+      (<span style="color: #a020f0;">dolist</span> (i l)
+        (<span style="color: #a020f0;">cond</span> ((typep i 'string)
+               (<span style="color: #a020f0;">when</span> (not (null result))
+                 (setf (first result) (nreverse (first result))))
+               (push (list 'list) result)
+               (push i (first result)))
+              (t
+               (push i (first result)))))
+      (setf (first result) (nreverse (first result)))
+      (nreverse result))))
+</pre>
+</div>
+
+<p>
+It walks over the list <code>l</code> and for each string it, pushes the symbol <code>list</code>
+into <code>result</code> and onto this list, it pushes the string.  For each other element
+it pushes it to the list as well until the iterator becomes a string.  If the
+list is not empty, it reverses the first element and starts over.  This also
+has to be done after each element in <code>l</code> is processed.  Finally, the list is
+reversed.
+</p>
+
+<p>
+The resulting list has elements that we call a <code>form</code>.  The following functions
+check whether such a form is correct by verifying whether the number of <code>~a</code>'s
+is the same as the number of parameters or alternatively, whether the number of
+<code>~a</code>'s is twice the number of parameters.  In the latter case, the
+specification contains line-break information.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">eval-when</span> (<span style="color: #483d8b;">:compile-toplevel</span> <span style="color: #483d8b;">:load-toplevel</span>)
+  (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">check-form-statically</span> (form)
+    (<span style="color: #a020f0;">let</span> ((form (rest form)))
+      (<span style="color: #a020f0;">cond</span> ((regular-form-p form)
+             nil)
+            ((break-line-form-p form)
+             (check-break-line-form form))
+            (t
+             (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"unmatched number of parameters for form ~s"</span>
+                    (first form)))))))
+</pre>
+</div>
+
+<p>
+It is possible to have regular forms and break-line forms.  The latter are
+forms with an extra function that specifies how the contents of a <code>~a</code> can be
+broken up.  The forms can be distinguished with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">eval-when</span> (<span style="color: #483d8b;">:compile-toplevel</span> <span style="color: #483d8b;">:load-toplevel</span>)
+  (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">regular-form-p</span> (form)
+    (<span style="color: #a020f0;">multiple-value-bind</span> (nr-replacements nr-items)
+        (get-replacements-and-items form)
+      (equal nr-replacements nr-items)))
+
+  (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">break-line-form-p</span> (form)
+    (<span style="color: #a020f0;">multiple-value-bind</span> (nr-replacements nr-items)
+        (get-replacements-and-items form)
+      (equal (* nr-replacements 2) nr-items))))
+</pre>
+</div>
+
+<p>
+Checking a break-line form happens as specified below:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">eval-when</span> (<span style="color: #483d8b;">:compile-toplevel</span> <span style="color: #483d8b;">:load-toplevel</span>)
+  (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">check-break-line-form</span> (form)
+    (<span style="color: #a020f0;">loop</span> for (f . r) on (rest form) by #'cddr 
+       always (typep (first r) 'function))))
+</pre>
+</div>
+
+<p>
+Retrieving the number of replacements and items:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">eval-when</span> (<span style="color: #483d8b;">:compile-toplevel</span> <span style="color: #483d8b;">:load-toplevel</span>)
+  (<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">get-replacements-and-items</span> (form)
+    (<span style="color: #a020f0;">let</span> ((nr-replacements (/ (length (all-matches <span style="color: #8b2252;">"~a"</span> (first form))) 2))
+          (nr-items (1- (length form))))
+      (values nr-replacements nr-items))))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb978167" class="outline-2">
+<h2 id="orgb978167"><span class="section-number-2">4</span> Processing forms</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Processing forms starts with making line-specs and processing them:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">process-forms</span> (forms)
+  (process-line-specs (mapcar #'make-line-spec forms)))
+</pre>
+</div>
+
+<p>
+A <code>line-spec</code> contains the format-string and the arguments: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defclass</span> <span style="color: #228b22;">line-spec</span> ()
+  ((format-string <span style="color: #483d8b;">:initarg</span> <span style="color: #483d8b;">:format-string</span>
+                  <span style="color: #483d8b;">:initform</span> (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Must supply a format string."</span>)
+                  <span style="color: #483d8b;">:reader</span> format-string)
+   (arguments <span style="color: #483d8b;">:initarg</span> <span style="color: #483d8b;">:arguments</span>
+              <span style="color: #483d8b;">:initform</span> (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Must supply arguments."</span>)
+              <span style="color: #483d8b;">:reader</span> arguments)))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">print-object</span> ((l line-spec) stream)
+  (print-unreadable-object (l stream <span style="color: #483d8b;">:type</span> t)
+    (format stream <span style="color: #8b2252;">"~s, ~a"</span> (format-string l) (arguments l))))
+</pre>
+</div>
+
+<p>
+Making a line-spec from a form happens with the following function:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-line-spec</span> (form)
+  (<span style="color: #a020f0;">destructuring-bind</span> (format <span style="color: #228b22;">&amp;rest</span> arguments) form
+    (<span style="color: #a020f0;">cond</span> ((regular-form-p form)
+           (make-instance 'line-spec
+                          <span style="color: #483d8b;">:format-string</span> format
+                          <span style="color: #483d8b;">:arguments</span> (mapcar #'make-segment arguments)))
+          ((break-line-form-p form)
+           (make-instance 'line-spec
+                          <span style="color: #483d8b;">:format-string</span> format
+                          <span style="color: #483d8b;">:arguments</span>
+                          <span style="color: #b22222;">;; </span><span style="color: #b22222;">(map-tuple arguments</span>
+                          <span style="color: #b22222;">;; </span><span style="color: #b22222;">                   #'make-break-line-segment</span>
+                          <span style="color: #b22222;">;; </span><span style="color: #b22222;">                   #'cddr)</span>
+                          (<span style="color: #a020f0;">loop</span> for (arg1 arg2) on arguments by #'cddr
+                             collect (make-break-line-segment arg1 arg2))))
+          (t
+           (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Unkown form: ~s."</span> form)))))
+</pre>
+</div>
+
+<p>
+This makes clear that there are two types of segments: a regular segment and
+a segment that contains additional information on how to break a line.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defclass</span> <span style="color: #228b22;">segment</span> ()
+  ((value <span style="color: #483d8b;">:initarg</span> <span style="color: #483d8b;">:value</span>
+          <span style="color: #483d8b;">:initform</span> (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Must supply a value."</span>)
+          <span style="color: #483d8b;">:reader</span> value)))
+
+(<span style="color: #a020f0;">defclass</span> <span style="color: #228b22;">break-line-segment</span> (segment)
+  ((break-line-func <span style="color: #483d8b;">:initarg</span> <span style="color: #483d8b;">:break-line-func</span>
+                    <span style="color: #483d8b;">:initform</span> (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Must supply a break-line specification."</span>)
+                    <span style="color: #483d8b;">:reader</span> break-line-func)))
+</pre>
+</div>
+
+<p>
+Its helper functions:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-segment</span> (value)
+  (make-instance 'segment <span style="color: #483d8b;">:value</span> value))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">print-object</span> ((s segment) stream)
+  (print-unreadable-object (s stream <span style="color: #483d8b;">:type</span> t)
+    (format stream <span style="color: #8b2252;">"~s"</span> (value s))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-break-line-segment</span> (value break-line-func)
+  (make-instance 'break-line-segment <span style="color: #483d8b;">:value</span> value
+                 <span style="color: #483d8b;">:break-line-func</span> break-line-func))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">print-object</span> ((s break-line-segment) stream)
+  (print-unreadable-object (s stream <span style="color: #483d8b;">:type</span> t)
+    (format stream <span style="color: #8b2252;">"~s, ~a"</span> (value s) (break-line-func s))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1996546" class="outline-2">
+<h2 id="org1996546"><span class="section-number-2">5</span> Processing line-specs</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Processing a line-spec is done with the function below.  It is highly possible
+that processing one line-spec results in more lines, therefore, the result of
+<code>process-line-spec</code> is a list.  If only one line is the result, then the line
+is returned instead.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">process-line-specs</span> (line-specs)
+  (<span style="color: #ff0000; font-weight: bold;">assert</span> (list-of-type line-specs 'line-spec))
+  (<span style="color: #a020f0;">let</span> ((flattened (flatten (mapcar #'process-line-spec line-specs))))
+    (<span style="color: #a020f0;">let</span> ((result (<span style="color: #a020f0;">if</span> (eql 1 (length flattened))
+                      (first flattened)
+                      flattened)))
+      (<span style="color: #ff0000; font-weight: bold;">assert</span> (or (typep result 'line) (list-of-type result 'line)))
+      result)))
+</pre>
+</div>
+
+<p>
+Processing a line-spec happens as specified below.  First, the format string is
+split into a list with format specifiers, possibly containing information about
+the indentation that we retrieve from the first element of the list of format
+specifiers.  Each format specifier will become an <code>segment</code> in a <code>line</code>.  The
+indentation needs to be removed from the format-string list elements.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">process-line-spec</span> (line-spec)
+  (<span style="color: #a020f0;">let*</span> ((format (split-format (format-string line-spec)))
+         (indentation (find-indentation (first format)))
+         (line (make-line indentation
+                          (make-segments (remove-indentation format)
+                                         (arguments line-spec)))))
+    (make-lines line)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">split-format</span> (format-string)
+  (<span style="color: #a020f0;">if</span> (string= <span style="color: #8b2252;">""</span> format-string) 
+      (list <span style="color: #8b2252;">""</span>)
+      (split <span style="color: #8b2252;">"(~a)"</span> format-string <span style="color: #483d8b;">:with-registers-p</span> t)))
+</pre>
+</div>
+
+<p>
+Finding the indentation:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">find-indentation</span> (string)
+  (nth-value 1 (scan <span style="color: #8b2252;">"^ *"</span> string)))
+</pre>
+</div>
+
+<p>
+Removing the indentation (the spaces) from the format-list:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">remove-indentation</span> (format)
+  (<span style="color: #a020f0;">let</span> ((indent-removed (string-left-trim <span style="color: #8b2252;">" "</span>(first format))))
+    (<span style="color: #a020f0;">if</span> (eql 0 (length indent-removed))
+        (<span style="color: #a020f0;">if</span> (null (rest format)) (list <span style="color: #8b2252;">""</span>) (rest format))
+        (cons indent-removed (rest format)))))
+</pre>
+</div>
+
+<p>
+With the indentation information and the segments, we create a <code>line</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defclass</span> <span style="color: #228b22;">line</span> ()
+  ((indentation <span style="color: #483d8b;">:initarg</span> <span style="color: #483d8b;">:indentation</span>
+                <span style="color: #483d8b;">:initform</span> (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Must supply an indentation."</span>)
+                <span style="color: #483d8b;">:accessor</span> indentation)
+   (segments <span style="color: #483d8b;">:initarg</span> <span style="color: #483d8b;">:segments</span>
+             <span style="color: #483d8b;">:initform</span> (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Must supply arguments."</span>)
+             <span style="color: #483d8b;">:accessor</span> segments)))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">print-object</span> ((l line) stream)
+  (print-unreadable-object (l stream <span style="color: #483d8b;">:type</span> t)
+    (format stream <span style="color: #8b2252;">"~a, ~a"</span> (indentation l) (segments l))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-line</span> (indentation segments)
+  (make-instance 'line <span style="color: #483d8b;">:indentation</span> indentation <span style="color: #483d8b;">:segments</span> segments))
+</pre>
+</div>
+
+<p>
+To make a line, the arguments from a <code>line-spec</code> have to be transformed into
+segments for a line.  If the format string contains a substring that is not a
+<code>~a</code>, this becomes a segment as well.  This happens in the following
+function that has as input a list of format specifiers, possibly a string
+without any <code>~a</code>'s in it, and the arguments from the line-spec:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-segments</span> (format-list arguments)
+  (<span style="color: #a020f0;">if</span> (null format-list)
+      nil
+      (<span style="color: #a020f0;">if</span> (string= <span style="color: #8b2252;">"~a"</span> (first format-list))
+          (cons (first arguments)
+                (make-segments (rest format-list) (rest arguments)))
+          (cons (make-segment (first format-list))
+                (make-segments (rest format-list) arguments)))))
+</pre>
+</div>
+
+<p>
+Finally, it is possible that segments within a line contain lists of lines,
+resulting from nested <code>emit</code> calls.  The following function flattens this into
+several lines, remembering the indentation:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-lines</span> (line)
+  (<span style="color: #a020f0;">let</span> ((lines nil)
+        (segments nil)
+        (indentation (indentation line)))
+    (<span style="color: #a020f0;">dolist</span> (segment (segments line))
+      (<span style="color: #a020f0;">typecase</span> (value segment)
+        (cons (<span style="color: #a020f0;">progn</span>
+                (<span style="color: #a020f0;">let</span> ((first (first (value segment)))
+                      (rest (rest (value segment))))
+                  (<span style="color: #a020f0;">when</span> (eql (indentation first) 0)
+                    (<span style="color: #a020f0;">dolist</span> (a (segments first)) (push a segments)))
+                  (<span style="color: #a020f0;">when</span> segments
+                    (push (make-line indentation (nreverse segments)) lines)
+                    (setf segments nil))
+                  (<span style="color: #a020f0;">when</span> (not (eql (indentation first) 0))
+                    (incf (indentation first) indentation)
+                    (push first lines))
+                  (<span style="color: #a020f0;">dolist</span> (line2 rest)
+                    (incf (indentation line2) indentation)
+                    (push line2 lines)))))
+        (line (<span style="color: #a020f0;">if</span> (eql (indentation (value segment)) 0)
+                  (<span style="color: #a020f0;">dolist</span> (a (segments (value segment))) (push a segments))
+                  (<span style="color: #a020f0;">progn</span>
+                    (<span style="color: #a020f0;">when</span> segments
+                      (push (make-line indentation (nreverse segments)) lines)
+                      (setf segments nil))
+                    (incf (indentation (value segment)) indentation)
+                    (push (value segment) lines))))
+        (otherwise (push segment segments))))
+    (<span style="color: #a020f0;">when</span> segments
+      (push (make-line indentation (nreverse segments)) lines))
+    (<span style="color: #a020f0;">let</span> ((result (nreverse lines)))
+      (<span style="color: #a020f0;">if</span> (eql (length result) 1)
+          (first result)
+          result))))
+</pre>
+</div>
+
+<p>
+This function keeps track of the lines, the current segments of a line, and
+the indentation.  Initially, we start with a line with the same indentation of
+the input line, then for each segment, if it is list, it means that the
+segment contains lines, which means that we add the current segments to the
+current line, reset the segments, push the lines in the segments on the stack
+of lines, and create a new line for any additional segments.  
+</p>
+
+<p>
+In the other case, the segment is just a segment that belongs to this line.
+Finally, we just return a line, if it turns out to be just one line.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgac38c07" class="outline-2">
+<h2 id="orgac38c07"><span class="section-number-2">6</span> Creating the output</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Creating emit output has two modes: if it is the emit that is responsible for
+the join, it will create the final output, otherwise, it will just return the
+lines. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">create-emit-output</span> (responsible-for-join result)
+  (<span style="color: #a020f0;">if</span> responsible-for-join
+      (<span style="color: #a020f0;">progn</span>
+        (setf *responsible-for-join* t)
+        (create-final-output result))
+      result))
+</pre>
+</div>
+
+<p>
+Creating the final output is just creating output for each <code>line</code>.  Since we
+have now all lines available, we can break the lines up with the information
+provided, discussed in the next section.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">create-final-output</span> (lines)
+  (<span style="color: #a020f0;">let</span> ((lines (break-lines (ensure-list lines))))
+    (format nil <span style="color: #8b2252;">"~{~a~^~%~}"</span> (mapcar #'create-output-line lines))))
+</pre>
+</div>
+
+<p>
+Creating the output for a line:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">create-output-line</span> (line)
+  (<span style="color: #a020f0;">with-slots</span> (indentation segments) line
+    (<span style="color: #a020f0;">if</span> (eql 0 indentation)
+        (format nil <span style="color: #8b2252;">"~{~a~}"</span> (mapcar #'get-value segments))
+        (format nil <span style="color: #8b2252;">"~vt~{~a~}"</span> indentation (mapcar #'get-value segments)))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">get-value</span> (segment)
+  (<span style="color: #a020f0;">let</span> ((value (value segment)))
+    (<span style="color: #a020f0;">if</span> value value <span style="color: #8b2252;">""</span>)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbde5cbb" class="outline-2">
+<h2 id="orgbde5cbb"><span class="section-number-2">7</span> Breaking the lines</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+To break the lines, we need to define the default indentation and the maximum
+number of columns.  We then recursively break each line up.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*default-indentation*</span> 2)
+(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*max-columns*</span> 80)
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">break-lines</span> (lines)
+  lines)
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">(if (null lines) </span>
+  <span style="color: #b22222;">;;     </span><span style="color: #b22222;">nil</span>
+  <span style="color: #b22222;">;;     </span><span style="color: #b22222;">(multiple-value-bind (line-one line-two) (break-line (first lines))</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">   (cons line-one (if (null line-two)</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">                      (break-lines (rest lines))</span>
+  <span style="color: #b22222;">;; </span><span style="color: #b22222;">                    (cons line-two (rest lines))))))</span>
+
+</pre>
+</div>
+
+<p>
+To break a line, we split the segments as soon as it exceeds the number of
+columns.  If the result is indeed split into two lists, we try to break up the
+segments for a line.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">break-line</span> (line)
+  (<span style="color: #a020f0;">with-slots</span> (indentation segments) line
+    (<span style="color: #a020f0;">multiple-value-bind</span> (segs-line1 segs-line2)
+        (split-list-on-first segments #'(<span style="color: #a020f0;">lambda</span> (s)
+                                  (exceeds-column-width s line)))
+      (<span style="color: #a020f0;">if</span> segs-line2
+          (break-segments-line
+           (cons  (first segs-line2) (reverse segs-line1)) (rest segs-line2)
+                               line)
+          (values line nil)))))
+</pre>
+</div>
+
+<p>
+Exceeding the column width means that the length of the current segment plus
+the length up to that segment is larger than the maximum number of columns.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">exceeds-column-width</span> (segment line)
+  (&gt; (+ (length (value segment)) (length-line-up-to-segment line segment))
+     *max-columns*))
+</pre>
+</div>
+
+<p>
+Computing the length of a line up to a certain segment in the line is done as
+follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">length-line-up-to-segment</span> (line segment)
+  (<span style="color: #a020f0;">with-slots</span> (indentation segments) line
+    (<span style="color: #a020f0;">let</span> ((current-length indentation))
+      (<span style="color: #a020f0;">dolist</span> (a (segments line))
+        (<span style="color: #a020f0;">when</span> (eql a segment)
+          (<span style="color: #a020f0;">return-from</span> length-line-up-to-segment current-length))
+        (incf current-length (length (value a))))
+      (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"segment ~a not in line ~a"</span> segment line))))
+</pre>
+</div>
+
+<p>
+Breaking the segments of a line will return either a tuple of a line and nil
+or a tuple of two lines.  The latter line will have twice the default
+indentation of first line.  The segments of the first line are reversed as
+this is easier to process.  The reason is that we want to start at the last
+segment, check whether that segment is breakable and than move back until we
+find a breakable segment.  This happens in the recursive function
+<code>break-segments-line2</code>. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">break-segments-line</span> (break-segs-rev segs-line2 line)
+  (<span style="color: #a020f0;">multiple-value-bind</span> (segs1 segs2)
+      (break-segments-line2 break-segs-rev segs-line2 line)
+    (<span style="color: #a020f0;">if</span> segs1
+        (<span style="color: #a020f0;">with-slots</span> (indentation) line
+          (values (make-line indentation segs1)
+                  (make-line (+ indentation (* 2 *default-indentation*))
+                             segs2)))
+        (values line nil))))
+</pre>
+</div>
+
+<p>
+This is a recursive function.  If we reached the end of the list, we return
+<code>nil</code>, otherwise we focus on the segment to break, which is the first one of
+the <code>break-segs-rev</code>.  If <code>break-seg</code> succeeds we return the two new lists of
+segments, otherwise we continue with the rest, and return a list of segments
+with the unsuccesfully broken <code>seg-to-break</code> also added in the mix.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">break-segments-line2</span> (break-segs-rev segs-line2 line)
+  (<span style="color: #a020f0;">if</span> (null break-segs-rev)
+      (values nil nil)
+      (<span style="color: #a020f0;">let</span> ((seg-to-break (first break-segs-rev))
+            (rest (rest break-segs-rev)))
+        (<span style="color: #a020f0;">multiple-value-bind</span> (seg1 seg2)
+            (break-seg seg-to-break line)
+          (<span style="color: #a020f0;">if</span> seg1
+              (values (reverse (cons seg1 rest))
+                      (cons seg2 segs-line2))
+              (<span style="color: #a020f0;">multiple-value-bind</span> (segs1 segs2)
+                  (break-segments-line2 rest segs-line2 line)
+                (values (cons seg-to-break segs1)
+                        segs2)))))))
+</pre>
+</div>
+
+<p>
+Breaking an segment can only be done with a <code>break-line-segment</code>:      
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">break-seg</span> (segment line)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Break an segment in a line."</span>))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">break-seg</span> ((segment segment) line)
+  nil)
+</pre>
+</div>
+
+<p>
+For a <code>break-line-segment</code> we loop over all separators that are defined in the
+<code>break-line-func</code> and try to break the segment with the separator.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">break-seg</span> ((segment break-line-segment) line)
+  (<span style="color: #a020f0;">loop</span> for separator in (funcall (break-line-func segment))
+       do (<span style="color: #a020f0;">multiple-value-bind</span> (seg1 seg2)
+              (break-seg-with-separator segment separator line)
+            (<span style="color: #a020f0;">when</span> seg1
+              (<span style="color: #a020f0;">return-from</span> break-seg (values seg1 seg2)))))
+  nil)
+</pre>
+</div>
+
+<p>
+In the following function we try to split the list of items within the string
+as late as possible and return two new break-line-segments or nil.  The new
+break-line-segments contain the string-items again, but joined together.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">break-seg-with-separator</span> (segment separator line)
+  (<span style="color: #a020f0;">with-slots</span> (value break-line-func) segment
+    (<span style="color: #a020f0;">let</span> ((current-length (length-line-up-to-segment line segment))
+           (items (split separator value)))
+      (<span style="color: #a020f0;">multiple-value-bind</span> (items1 items2)
+          (split-list-on-first items #'(<span style="color: #a020f0;">lambda</span> (x)
+                                (incf current-length (+ (length separator)
+                                                        (length x)))
+                                (&gt; current-length *max-columns*)))
+        (<span style="color: #a020f0;">if</span> items2
+            (values
+             (make-break-line-segment (join items1 <span style="color: #483d8b;">:separator</span> separator) break-line-func)
+             (make-break-line-segment (join items2 <span style="color: #483d8b;">:separator</span> separator) break-line-func))
+            nil)))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2cbe8ad" class="outline-2">
+<h2 id="org2cbe8ad"><span class="section-number-2">8</span> The <code>emit-list</code> function</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+The following code defines the <code>emit-list</code> function:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">emit-list</span> (l <span style="color: #228b22;">&amp;key</span> separator (nr-lines 1 supplied-p)
+                      (function #'identity))
+  (<span style="color: #a020f0;">let</span> ((responsible-for-join (toggle-responsible-for-join))
+        (result (create-list-result l separator nr-lines supplied-p function)))
+    (create-emit-output responsible-for-join result)))
+</pre>
+</div>
+
+<p>
+It needs to check whether it is responsible for joining and then calls:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">create-separator-lines</span> (l separator nr-lines function)
+  (<span style="color: #a020f0;">loop</span> for elt in l for i below (length l) 
+     appending 
+       (ensure-list (make-lines (make-line 0 (cons (make-segment (funcall function elt))
+                                                   (<span style="color: #a020f0;">if</span> (&lt; i (1- (length l)))
+                                                       (list (make-segment separator))
+                                                       nil)))))
+     appending (make-empty-lines nr-lines)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">create-list-result</span> (l separator
+                           nr-lines nr-lines-supplied-p
+                           function)
+  (<span style="color: #a020f0;">cond</span> ((and separator nr-lines-supplied-p)
+         (<span style="color: #a020f0;">if</span> (&gt; nr-lines 0)
+             (create-separator-lines l separator nr-lines function)
+             (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Need to specify a number of lines greater than 0"</span>)))
+        (separator
+         (make-lines
+          (make-line 0 (create-separator-segments l separator function))))
+        (t
+           (<span style="color: #a020f0;">loop</span> for i in l
+              appending (ensure-list (make-lines (make-line 0 (list (make-segment
+                                                    (funcall function i))))))
+              appending (make-empty-lines nr-lines)))))
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">create-separator-segments</span> (l separator function)
+  (cons (make-segment (funcall function (first l)))
+        (<span style="color: #a020f0;">loop</span> for i in (rest l)
+             appending (ensure-list (make-segment separator))
+             appending (ensure-list (make-segment (funcall function i))))))
+</pre>
+</div>
+
+<p>
+This function creates a format string for the situation where a separator was
+defined.  It applies function <code>function</code> to each segment.  If lines were
+requested, we create empty lines:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-empty-lines</span> (nr-lines)
+  (<span style="color: #a020f0;">loop</span> for i below (1- nr-lines) appending
+       (ensure-list (make-line 0 (list (make-segment <span style="color: #8b2252;">""</span>))))))
+</pre>
+</div>
+
+
+
+<p>
+The function <code>check-item</code> applies function f and checks whether the item is a
+string:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">check-item</span> (i function)
+  (<span style="color: #a020f0;">let</span> ((result (funcall function i)))
+    (<span style="color: #a020f0;">typecase</span> result
+      (string
+       result)
+      (otherwise
+       (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"expecting a string for ~a"</span> result)))))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org3ea1213" class="outline-2">
+<h2 id="org3ea1213"><span class="section-number-2">9</span> Split lines</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Sometimes it is useful to split lines to use other results from emit later on.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">split-lines</span> (string)
+  (split-sequence #\newline string))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd0d9511" class="outline-2">
+<h2 id="orgd0d9511"><span class="section-number-2">10</span> Testing</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+To test the functionality, we first have to set up some variables with values
+to use in the tests:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*void*</span> <span style="color: #8b2252;">"void"</span>)
+(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*f*</span> <span style="color: #8b2252;">"f"</span>)
+(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*g*</span> <span style="color: #8b2252;">"g"</span>)
+(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*a*</span> <span style="color: #8b2252;">"A"</span>)
+
+</pre>
+</div>
+
+<p>
+With the test we want to recreate the following inputs:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">
+(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*input*</span>
+<span style="color: #8b2252;">"class A {</span>
+
+<span style="color: #8b2252;">    void f(int a, int b) {</span>
+<span style="color: #8b2252;">        int a = 2;</span>
+<span style="color: #8b2252;">        int c = 3;</span>
+<span style="color: #8b2252;">        return 5;</span>
+<span style="color: #8b2252;">    }</span>
+
+<span style="color: #8b2252;">    void g(int a, int b) {</span>
+<span style="color: #8b2252;">        int c = 3;</span>
+<span style="color: #8b2252;">        int d = 4;</span>
+<span style="color: #8b2252;">    }</span>
+
+<span style="color: #8b2252;">}"</span>)
+
+(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*input-funcs*</span>
+<span style="color: #8b2252;">"void f(int a, int b) {</span>
+<span style="color: #8b2252;">    int a = 2;</span>
+<span style="color: #8b2252;">    int c = 3;</span>
+<span style="color: #8b2252;">    return 5;</span>
+<span style="color: #8b2252;">}</span>
+
+<span style="color: #8b2252;">void g(int a, int b) {</span>
+<span style="color: #8b2252;">    int c = 3;</span>
+<span style="color: #8b2252;">    int d = 4;</span>
+<span style="color: #8b2252;">}</span>
+<span style="color: #8b2252;">"</span>)
+
+(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*input-separator/lines*</span>
+<span style="color: #8b2252;">"void g(int a,</span>
+<span style="color: #8b2252;">int b</span>
+<span style="color: #8b2252;">) {</span>
+<span style="color: #8b2252;">    int c = 3;</span>
+<span style="color: #8b2252;">    int d = 4;</span>
+<span style="color: #8b2252;">}"</span>)
+
+</pre>
+</div>
+
+
+<p>
+We define the following tests:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(test emit-nil
+  (is (equal <span style="color: #8b2252;">""</span> (emit <span style="color: #8b2252;">"~a"</span> nil))))
+
+(test emit-void
+  (is
+   (equal <span style="color: #8b2252;">"void"</span> (emit <span style="color: #8b2252;">"~a"</span> *void*))))
+
+(test emit-class
+  (is
+    (equal *input* (pp))))
+
+(test emit-list
+  (is
+   (equal *input-funcs* (funcs))))
+
+(test emit-separator/line-list
+  (is
+   (equal *input-separator/lines* (func2-separator/lines))))
+</pre>
+</div>
+
+<p>
+The first test is a simple test.  The second tests the <code>emit-list</code>
+functionality.  The third test <code>test-class</code> tests the creation of a class and
+tests most of the functionality of this library.
+</p>
+
+<p>
+For the first test we need the function <code>pp</code> and many others:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">expr</span> ()
+  <span style="color: #8b2252;">"2"</span>)
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">stat</span> ()
+  (emit <span style="color: #8b2252;">"int a = ~a;"</span> (expr)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">stats</span> ()
+  (emit-list (list (stat) <span style="color: #8b2252;">"int c = 3;"</span> <span style="color: #8b2252;">"return 5;"</span>)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">stats2</span> ()
+  (emit-list (list <span style="color: #8b2252;">"int c = 3;"</span> <span style="color: #8b2252;">"int d = 4;"</span>)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">var</span> () 
+  <span style="color: #8b2252;">"a"</span>)
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">param</span> ()
+  (emit <span style="color: #8b2252;">"int ~a"</span> (var)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">params</span> ()
+  (emit-list (list (param) <span style="color: #8b2252;">"int b"</span>) <span style="color: #483d8b;">:separator</span> <span style="color: #8b2252;">", "</span>))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">params-separator/lines</span> ()
+  (emit-list (list (param) <span style="color: #8b2252;">"int b"</span>) <span style="color: #483d8b;">:separator</span> <span style="color: #8b2252;">","</span> <span style="color: #483d8b;">:nr-lines</span> 1))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">bl</span> ()
+  (emit <span style="color: #8b2252;">"{"</span>
+        <span style="color: #8b2252;">"    ~a"</span> (stats)
+        <span style="color: #8b2252;">"}"</span>))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">func</span> ()
+  (emit <span style="color: #8b2252;">"~a ~a(~a) ~a"</span> *void* *f* (params) (bl)))
+
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">func2</span> ()
+  (emit <span style="color: #8b2252;">"~a ~a(~a) {"</span> *void* *g* (params)
+        <span style="color: #8b2252;">"    ~a"</span> (stats2)
+        <span style="color: #8b2252;">"}"</span>))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">func2-separator/lines</span> ()
+  (emit <span style="color: #8b2252;">"~a ~a(~a) {"</span> *void* *g* (params-separator/lines)
+        <span style="color: #8b2252;">"    ~a"</span> (stats2)
+        <span style="color: #8b2252;">"}"</span>))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">funcs</span> ()
+  (emit-list (list (func) (func2)) <span style="color: #483d8b;">:nr-lines</span> 2))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">pp</span> ()
+  (emit <span style="color: #8b2252;">"class ~a {"</span> *a*
+        <span style="color: #8b2252;">""</span>
+        <span style="color: #8b2252;">"    ~a"</span> (funcs)
+        <span style="color: #8b2252;">"}"</span>))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">test-code-emitter</span> ()
+  (run! 'code-emitter))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org12e87d8" class="outline-2">
+<h2 id="org12e87d8"><span class="section-number-2">11</span> Copying <a id="org2bcb39c"></a></h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Library for pretty-printing code.
+Copyright (C) 2018 Pieter Hijma
+</p>
+
+<p>
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+</p>
+
+<p>
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</p>
+
+<p>
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2019-06-17 Mon 11:54</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

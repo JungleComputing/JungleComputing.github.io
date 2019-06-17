@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-06-17 Mon 11:54 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Installing MCL</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Installing MCL</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd4c26ca">1. Introduction</a></li>
+<li><a href="#orgb791962">2. Prerequisites</a></li>
+<li><a href="#org6bfb616">3. Setting up the environment variables</a></li>
+<li><a href="#orge264b5e">4. Obtaining org-build-tools</a></li>
+<li><a href="#orgac7a9b5">5. Obtaining MCL</a></li>
+<li><a href="#org696e025">6. Tangling MCL</a></li>
+<li><a href="#orgcc67686">7. Setting up Quicklisp</a></li>
+<li><a href="#orgbf089de">8. Setting up SBCL</a></li>
+<li><a href="#org1ebf849">9. Installing Maxima</a></li>
+<li><a href="#orgd2e067e">10. Retrieving all quicklisp libraries for MCL</a></li>
+<li><a href="#org653ff37">11. Testing MCL</a></li>
+<li><a href="#org0349960">12. Make a commandline utility of MCL</a></li>
+<li><a href="#orgd2ac09e">13. Installation files outside of the MCL repository</a>
+<ul>
+<li><a href="#org8c0f474">13.1. SBCL</a></li>
+<li><a href="#org9269748">13.2. Other</a></li>
+</ul>
+</li>
+<li><a href="#orga302a22">14. Maxima and a new version of SBCL</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd4c26ca" class="outline-2">
+<h2 id="orgd4c26ca"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This document describes the full procedure for installing MCL.  Most of MCL's
+source is contained in literal programming <a href="https://orgmode.org">Org-mode</a> files with extension
+".org".  The <code>INSTALL</code> file in the root directory of the MCL project only
+describes the initial part of extracting the actual sources from the literate
+programming files, a process that is called 'tangling'.  From there this
+document was created from <code>doc/installing_mcl.org</code>.  For completeness, we
+describe the full process, including what was mentioned in <code>INSTALL</code>.  It is
+indicated at the start of a section if it does not contain new information
+compared to what was mentioned in <code>INSTALL</code>.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb791962" class="outline-2">
+<h2 id="orgb791962"><span class="section-number-2">2</span> Prerequisites</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+To install MCL we need the following software packages: git; Emacs version 25
+or higher; a sufficiently compatible shell such as <code>bash</code>; the package
+<code>org-build-tools</code> for tangling .org files, Steel Bank Common Lisp or SBCL, an
+implementation of Common Lisp; curl, for downloading files from the internet;
+GnuPG, for verifying sources; Quicklisp, a library manager for Common Lisp
+libraries; and GCC for using MCL as a commandline application.
+</p>
+
+<p>
+In Arch Linux the following software is in the following packages:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Software</th>
+<th scope="col" class="org-left">Package</th>
+<th scope="col" class="org-left">Version requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">git</td>
+<td class="org-left">git</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Emacs</td>
+<td class="org-left">emacs</td>
+<td class="org-left">&gt;= 25</td>
+</tr>
+
+<tr>
+<td class="org-left">SBCL</td>
+<td class="org-left">sbcl</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">curl</td>
+<td class="org-left">curl</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">GnuPG</td>
+<td class="org-left">gnupg</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">GCC</td>
+<td class="org-left">gcc</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+On macOS, recent versions of SBCL, Emacs and GnuPG are available from homebrew.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6bfb616" class="outline-2">
+<h2 id="org6bfb616"><span class="section-number-2">3</span> Setting up the environment variables</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+MCL makes use of several libraries that are in principle independent of MCL.
+It is therefore possible to place them in a non-intrusive directory, for
+example in <code>$HOME/.mcl_util/</code>.  For the rest of the document we are going to
+assume that this directory is used for the independent libraries.  In this
+section we will set up several environment variables that ensure that scripts
+and libraries know where to look for other software.  We recommend to place
+these environment variables in a shell initialization script, for example
+<code>$HOME/.bashrc</code>.
+</p>
+
+<p>
+Tangling MCL is done with the scripts in <code>org-build-tools</code>.  To use this
+package we create the following environment variable:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">ORG_BUILD_TOOLS</span>=$<span style="color: #a0522d;">HOME</span>/.mcl_util/org-build-tools
+</pre>
+</div>
+
+<p>
+Quicklisp is a library manager for Common Lisp.  MCL needs the following
+environment variable to make use of it:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">QUICKLISP_DIR</span>=$<span style="color: #a0522d;">HOME</span>/.mcl_util/quicklisp
+</pre>
+</div>
+
+<p>
+The following environment variables need to be set for MCL itself:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">MCL_ROOT_DIR</span>=/path/to/place_mcl/mcl
+<span style="color: #483d8b;">export</span> <span style="color: #a0522d;">HDL_DIR</span>=$<span style="color: #a0522d;">MCL_ROOT_DIR</span>/input/hdl
+</pre>
+</div>
+
+<p>
+For direct access to the <code>mcl</code> program the directory <code>bin</code> can be added to your
+path:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">PATH</span>=$<span style="color: #a0522d;">MCL_ROOT_DIR</span>/bin:$<span style="color: #a0522d;">PATH</span>
+</pre>
+</div>
+
+<p>
+To control where MCL places the output files, MCL uses the following
+environment variable: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">export</span> <span style="color: #a0522d;">MCL_OUTPUT_DIR</span>=/path/of/your/choice
+</pre>
+</div>
+
+<p>
+The newly introduced environment variables can be loaded into the current shell
+with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">source</span> ~/.bashrc
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orge264b5e" class="outline-2">
+<h2 id="orge264b5e"><span class="section-number-2">4</span> Obtaining org-build-tools</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+This section may already describe what was in <code>INSTALL</code>.  We can retrieve
+org-build-tools with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">mkdir -p $<span style="color: #a0522d;">ORG_BUILD_TOOLS</span>
+git clone https://github.com/JungleComputing/org-build-tools.git $<span style="color: #a0522d;">ORG_BUILD_TOOLS</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgac7a9b5" class="outline-2">
+<h2 id="orgac7a9b5"><span class="section-number-2">5</span> Obtaining MCL</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+This section describes what was already in <code>INSTALL</code>.  We can retrieve MCL
+with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">git clone https://github.com/JungleComputing/mcl.git $<span style="color: #a0522d;">MCL_ROOT_DIR</span>
+</pre>
+</div>
+
+<p>
+We can now retrieve all the submodules:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">cd</span> $<span style="color: #a0522d;">MCL_ROOT_DIR</span>
+
+git submodule init
+git submodule update
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org696e025" class="outline-2">
+<h2 id="org696e025"><span class="section-number-2">6</span> Tangling MCL</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+This section describes what was already in <code>INSTALL</code>.  We can tangle
+all the .org files with the following command:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">./scripts/tangle-mcl
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcc67686" class="outline-2">
+<h2 id="orgcc67686"><span class="section-number-2">7</span> Setting up Quicklisp</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+MCL needs to have access to several existing libraries.  <a href="https://www.quicklisp.org">Quicklisp</a> is a library
+manager for Common Lisp.  The script <code>scripts/install-quicklisp</code> downloads
+Quicklisp, verifies the integrity of the file, and adds it to the SBCL
+initialization file <code>$HOME/.sbclrc</code>.  It is possible to override the location
+of <code>.sbclrc</code> by setting the environment variable <code>SBCLRC</code> to some value.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">cd</span> $<span style="color: #a0522d;">MCL_ROOT_DIR</span>
+./scripts/install-quicklisp
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbf089de" class="outline-2">
+<h2 id="orgbf089de"><span class="section-number-2">8</span> Setting up SBCL</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+Besides setting up Quicklisp, SBCL needs additional setup for MCL.  The script
+<code>scripts/setup-sbcl</code> creates a directory for "systems" that will contain
+symbolic links to <code>.asd</code> files.  A <i>system</i> is a collection of files that can be
+loaded by Common Lisp.  A <code>.asd</code> file describes the dependencies of those files
+with other files or systems.  The <code>setup-sbcl</code> script will add a symbolic link
+to <code>mcl.asd</code>, the file that describes all the dependencies to load MCL.
+</p>
+
+<p>
+The script will then add some code to <code>$HOME/.sbclrc</code> to inform SBCL where to
+look for systems.  In addition, we set the environment variable <code>CC</code> to <code>gcc</code>
+for SBCL to ensure that one of the libraries can generate native code to find
+out the capabilities of a terminal.
+</p>
+
+<p>
+It is possible to override the default location of systems
+(<code>$HOME/.sbcl/systems</code>) by setting the environment variable <code>SBCL_SYSTEM_DIR</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">./scripts/setup-sbcl
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1ebf849" class="outline-2">
+<h2 id="org1ebf849"><span class="section-number-2">9</span> Installing Maxima</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+<a href="http://maxima.sourceforge.net/">Maxima</a> is a Computer Algebra System written in Common Lisp that we use to
+simplify expressions.  We can install it with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">./scripts/install-maxima
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd2e067e" class="outline-2">
+<h2 id="orgd2e067e"><span class="section-number-2">10</span> Retrieving all quicklisp libraries for MCL</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+We can automatically retrieve all libraries for quicklisp by loading MCL with
+quicklisp.  We do that by using the following script:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">./scripts/fetch-quicklisp-libs
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org653ff37" class="outline-2">
+<h2 id="org653ff37"><span class="section-number-2">11</span> Testing MCL</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+With the following script we can test MCL.  If a test does not pass, the script
+will return with an error-code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">./scripts/test-mcl
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0349960" class="outline-2">
+<h2 id="org0349960"><span class="section-number-2">12</span> Make a commandline utility of MCL</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+The following script creates the commandline utility <code>mcl</code> and puts it in
+<code>bin</code>. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">./scripts/make-mcl
+</pre>
+</div>
+
+<p>
+The installation of MCL is now complete.  The following sections lists the
+files and directories outside of the MCL repository.  A possible next step is
+the <a href="manual_mcl.html">manual</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd2ac09e" class="outline-2">
+<h2 id="orgd2ac09e"><span class="section-number-2">13</span> Installation files outside of the MCL repository</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+This section lists the files and directories that are installed but are not
+part of the <code>$MCL_ROOT_DIR</code>.  For a complete removal of MCL, the following files
+and directories can be removed:
+</p>
+
+<ul class="org-ul">
+<li><code>$HOME/.sbclrc</code></li>
+<li><code>$HOME/.sbcl</code></li>
+<li><code>$HOME/.mcl_util</code></li>
+<li><code>$HOME/.emacs.d</code></li>
+</ul>
+
+<p>
+The installation needs several environment variables that can be
+removed/modified when uninstalling MCL:
+</p>
+
+<ul class="org-ul">
+<li><code>ORG_BUILD_TOOLS</code></li>
+<li><code>QUICKLISP_DIR</code></li>
+<li><code>MCL_ROOT_DIR</code></li>
+<li><code>HDL_DIR</code></li>
+<li><code>PATH</code></li>
+<li><code>MCL_OUTPUT_DIR</code></li>
+</ul>
+</div>
+
+<div id="outline-container-org8c0f474" class="outline-3">
+<h3 id="org8c0f474"><span class="section-number-3">13.1</span> SBCL</h3>
+<div class="outline-text-3" id="text-13-1">
+<p>
+The installation process created the file <code>.sbclrc</code> that initializes SBCL and
+the directory <code>$HOME/.sbcl</code> that contains the directory <code>systems</code> with symbolic
+links to the system description files with extension <code>.asd</code>.  
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9269748" class="outline-3">
+<h3 id="org9269748"><span class="section-number-3">13.2</span> Other</h3>
+<div class="outline-text-3" id="text-13-2">
+<p>
+In <code>.mcl_util</code> we installed <code>org-build-tools</code> and the Quicklisp distribution.
+Emacs added a directory to <code>.emacs.d</code> to generate colorized HTML output.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga302a22" class="outline-2">
+<h2 id="orga302a22"><span class="section-number-2">14</span> Maxima and a new version of SBCL</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+Each time SBCL is updated, it is necessary to reinstall Maxima.  To accomplish
+this, remove the directory <code>lib/maxima-5.41.0/src/binary-sbcl</code> and rerun the
+installation script:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">./scripts/install-maxima
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2019-06-17 Mon 11:54</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

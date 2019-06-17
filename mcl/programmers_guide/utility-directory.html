@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-06-17 Mon 11:54 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Common Lisp Utility Directory</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Common Lisp Utility Directory</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org5665fa7">1. Introduction</a></li>
+<li><a href="#org8fa4d40">2. Finding utility functions</a>
+<ul>
+<li><a href="#org6a2a9ca">2.1. Quicksearch</a></li>
+<li><a href="#orgd4ef055">2.2. Quickutil</a></li>
+</ul>
+</li>
+<li><a href="#org35782cd">3. Sequences</a>
+<ul>
+<li><a href="#org099ae28">3.1. <code>last1</code></a></li>
+<li><a href="#org7a57643">3.2. <code>last-elt</code> </a></li>
+<li><a href="#org0366533">3.3. <code>split-sequence</code></a></li>
+</ul>
+</li>
+<li><a href="#orgff80c37">4. Lists</a>
+<ul>
+<li><a href="#orge71c54d">4.1. <code>cartesian-product</code></a></li>
+<li><a href="#org668fdd4">4.2. <code>compose</code></a></li>
+<li><a href="#org122abb0">4.3. <code>ensure-list</code> </a></li>
+<li><a href="#org72c6f9b">4.4. <code>filter</code></a></li>
+<li><a href="#orgde077b7">4.5. <code>flatten</code></a></li>
+<li><a href="#org667baab">4.6. <code>insert-after</code></a></li>
+<li><a href="#org88deeb5">4.7. <code>insert-before</code></a></li>
+<li><a href="#org18af18d">4.8. <code>list-of</code></a></li>
+<li><a href="#orgf55c6cc">4.9. <code>list-of-type</code></a></li>
+<li><a href="#org7f46968">4.10. <code>map-tuple</code></a></li>
+<li><a href="#org6e0491d">4.11. <code>mklist</code></a></li>
+<li><a href="#org04af744">4.12. <code>splice-if</code></a></li>
+<li><a href="#orgf9b12be">4.13. <code>split-list-on-first</code></a></li>
+<li><a href="#orgf0f7f29">4.14. <code>walk-tree</code></a></li>
+</ul>
+</li>
+<li><a href="#org9e5693b">5. Strings</a>
+<ul>
+<li><a href="#org9415d82">5.1. <code>escape</code></a></li>
+<li><a href="#org0471bd7">5.2. <code>join</code></a></li>
+<li><a href="#orgf261ab8">5.3. <code>string-case</code></a></li>
+<li><a href="#org8efa184">5.4. <code>replace-all</code></a></li>
+<li><a href="#orgc041b2f">5.5. <code>replace-all-multiple</code></a></li>
+</ul>
+</li>
+<li><a href="#org5b7337d">6. Hash-table</a>
+<ul>
+<li><a href="#orgd978b5f">6.1. <code>copy-hash-table</code></a></li>
+<li><a href="#orga772c81">6.2. <code>hash-table=</code></a></li>
+</ul>
+</li>
+<li><a href="#orge819e65">7. Files</a>
+<ul>
+<li><a href="#orgb7dfb30">7.1. <code>read-file-into-string</code></a></li>
+<li><a href="#org3343495">7.2. <code>list-directory</code></a></li>
+</ul>
+</li>
+<li><a href="#org4480a4b">8. Macros</a>
+<ul>
+<li><a href="#org2f0d90c">8.1. <code>def-methods</code></a></li>
+<li><a href="#orgf29de2e">8.2. <code>with-gensyms</code> </a></li>
+<li><a href="#org6da8273">8.3. <code>once-only</code> </a></li>
+<li><a href="#orgb86acc5">8.4. <code>def-standard-class</code></a></li>
+<li><a href="#org8c242ed">8.5. <code>fixed-point</code></a></li>
+<li><a href="#orgc52b69d">8.6. <code>unexport-symbols</code></a></li>
+</ul>
+</li>
+<li><a href="#orga7769e1">9. Copying </a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5665fa7" class="outline-2">
+<h2 id="org5665fa7"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+There are many different packages in Common Lisp that provide general utility
+functions.  The general utility landscape is rather fragmented with libraries
+such as Alexandria, cl-utilities, etc.  An interesting approach to solve this
+problem is <a href="http://quickutil.org">Quickutil</a> that allows you to load a specific utility in your image,
+independent of what exact package it originates from.  Although it would be
+preferable to add all the utilities to Quickutil, this system does not seem to
+be completely up-to-date (mid 2018).  Another problem is that for this system
+to work well, all utility libraries maintainers should add or allow to add
+their utilities to this system, which is problematic due to licenses.
+</p>
+
+<p>
+This utility directory serves as a way to find and add commonly used utilities
+organized by category.  It simply lists commonly used utilities, records which
+library contains the functionality and if no library has it, it adds the
+functionality.
+</p>
+
+<p>
+This library has the Apache 2.0 license for now, but since it is preferable to
+add them to Quickutil, they may be released to the public domain later as
+Quickutil requires this.  See Sec. <a href="#org03eacbd">9</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8fa4d40" class="outline-2">
+<h2 id="org8fa4d40"><span class="section-number-2">2</span> Finding utility functions</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+If a utility function is not listed in this directory, one can try to find the
+utility by the following means:
+</p>
+</div>
+
+<div id="outline-container-org6a2a9ca" class="outline-3">
+<h3 id="org6a2a9ca"><span class="section-number-3">2.1</span> Quicksearch</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Quicksearch searches through wikis and Github for utility functionality:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(ql:quickload <span style="color: #8b2252;">"quicksearch"</span>)
+(quicksearch:quicksearch <span style="color: #8b2252;">"join"</span>)
+</pre>
+</div>
+
+<pre class="example">
+SEARCH-RESULTS: "join"
+
+ Cliki
+  beirc
+  cirCLe
+  cl-ajax
+  cl-strings
+  cl-uglify-js
+  clsql-fluid
+  clsql-pg-introspect
+  hyde
+  ILC 2003 sightseeing
+  IRC
+  JARW
+  LispChicago
+  LispGameDesignChallenge
+  LispGameDesignChallenge-summer-2010
+  Naming conventions
+  patron
+  str
+  Three Comma Programmer
+  YoungLispers
+
+ GitHub
+  cl-join
+  joint_movement
+  join-sequence
+  chenchao-1407-test
+T
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(ql:system-apropos <span style="color: #8b2252;">"cl-strings"</span>)
+(ql:ql <span style="color: #8b2252;">"cl-strings"</span>)
+(cl-strings:join '(<span style="color: #8b2252;">"a"</span> <span style="color: #8b2252;">"b"</span> <span style="color: #8b2252;">"c"</span>) <span style="color: #483d8b;">:separator</span> <span style="color: #8b2252;">", "</span>)
+</pre>
+</div>
+
+<pre class="example">
+"a, b, c"
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd4ef055" class="outline-3">
+<h3 id="orgd4ef055"><span class="section-number-3">2.2</span> Quickutil</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+We can search utilities with <a href="http://quickutil.org/list">Quickutil</a>.  We can also use the REPL:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(ql:quickload <span style="color: #8b2252;">"quickutil"</span>)
+(qtlc:who-provides <span style="color: #483d8b;">:mappend</span>)
+</pre>
+</div>
+
+<pre class="example">
+:MAPPEND
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org35782cd" class="outline-2">
+<h2 id="org35782cd"><span class="section-number-2">3</span> Sequences</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The following sequence utilities are listed:
+</p>
+</div>
+
+<div id="outline-container-org099ae28" class="outline-3">
+<h3 id="org099ae28"><span class="section-number-3">3.1</span> <code>last1</code></h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+See <a href="#org056b489">3.2</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7a57643" class="outline-3">
+<h3 id="org7a57643"><span class="section-number-3">3.2</span> <code>last-elt</code> <a id="org056b489"></a></h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Gives the last element in a sequence.  Can be found in <code>alexandria</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0366533" class="outline-3">
+<h3 id="org0366533"><span class="section-number-3">3.3</span> <code>split-sequence</code></h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Splits a sequence into a list based on a delimiter.  It can be found in
+<code>split-sequence</code> and <code>cl-utilities</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgff80c37" class="outline-2">
+<h2 id="orgff80c37"><span class="section-number-2">4</span> Lists</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+This directory has the following utility functions for lists:
+</p>
+</div>
+
+<div id="outline-container-orge71c54d" class="outline-3">
+<h3 id="orge71c54d"><span class="section-number-3">4.1</span> <code>cartesian-product</code></h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Takes the cartesian product of a list of lists.  It is also available in
+Quickutil, but this version only supports two lists, whereas the version below
+supports more than two.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">simple-cartesian-product</span> (set list)
+  (<span style="color: #a020f0;">loop</span> for elm in set
+     nconc (<span style="color: #a020f0;">loop</span> for set in list
+              collect (cons elm set))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">cartesian-product</span> (list-of-sets)
+  (reduce #'simple-cartesian-product list-of-sets
+          <span style="color: #483d8b;">:from-end</span> t
+          <span style="color: #483d8b;">:initial-value</span> '(())))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org668fdd4" class="outline-3">
+<h3 id="org668fdd4"><span class="section-number-3">4.2</span> <code>compose</code></h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+This is slightly out of place, but function composition is a list of functions.
+The function <code>compose</code> is available in <code>alexandria</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org122abb0" class="outline-3">
+<h3 id="org122abb0"><span class="section-number-3">4.3</span> <code>ensure-list</code> <a id="orgb6b1ca7"></a></h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+This utility is sometimes also called <code>mklist</code> and ensures that the result is
+always a list.  It is available in <code>alexandria</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org72c6f9b" class="outline-3">
+<h3 id="org72c6f9b"><span class="section-number-3">4.4</span> <code>filter</code></h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Returns a new list of the elements in the original for which the predicate
+holds.  This can be done with <code>(remove-if (complement &lt;predicate&gt;)
+&lt;sequence&gt;)</code>.  This can also be expressed with <code>(remove-if-not &lt;predicate&gt;
+&lt;sequence&gt;)</code>, but this function is deprecated.  These forms are so verbose,
+that we just added filter:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">filter</span> (predicate sequence)
+  (remove-if (complement predicate) sequence))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgde077b7" class="outline-3">
+<h3 id="orgde077b7"><span class="section-number-3">4.5</span> <code>flatten</code></h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+This utility flattens a tree.  It can be found in <code>let-over-lambda</code> and
+<code>alexandria</code>. 
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org667baab" class="outline-3">
+<h3 id="org667baab"><span class="section-number-3">4.6</span> <code>insert-after</code></h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+Return a new list where an item is inserted behind a specified item in a list.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">insert-after</span> (item-to-insert-after list item-to-insert 
+                      <span style="color: #228b22;">&amp;key</span> (test #'eq))
+  <span style="color: #8b2252;">"Insert item-to-insert after item-to-insert-after in list list."</span>
+  (reduce #'(<span style="color: #a020f0;">lambda</span> (item result)
+              (<span style="color: #a020f0;">if</span> (funcall test item item-to-insert-after)
+                  (cons item (cons item-to-insert result))
+                  (cons item result))) list <span style="color: #483d8b;">:from-end</span> t <span style="color: #483d8b;">:initial-value</span> nil))
+
+
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org88deeb5" class="outline-3">
+<h3 id="org88deeb5"><span class="section-number-3">4.7</span> <code>insert-before</code></h3>
+<div class="outline-text-3" id="text-4-7">
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">insert-before</span> (item-to-insert-before list item-to-insert 
+                      <span style="color: #228b22;">&amp;key</span> (test #'eq))
+  <span style="color: #8b2252;">"Insert item-to-insert before item-to-insert-before in list list."</span>
+  (reduce #'(<span style="color: #a020f0;">lambda</span> (item result)
+              (<span style="color: #a020f0;">if</span> (funcall test item item-to-insert-before)
+                  (cons item-to-insert (cons item result))
+                  (cons item result))) list <span style="color: #483d8b;">:from-end</span> t <span style="color: #483d8b;">:initial-value</span> nil))
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org18af18d" class="outline-3">
+<h3 id="org18af18d"><span class="section-number-3">4.8</span> <code>list-of</code></h3>
+<div class="outline-text-3" id="text-4-8">
+<p>
+Returns true if all elements of the list satisfy the predicate.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">list-of</span> (predicate list)
+  <span style="color: #8b2252;">"Check whether the elements of lst sattisfy predicate."</span>
+  (<span style="color: #a020f0;">loop</span> for i in list always (funcall predicate i)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf55c6cc" class="outline-3">
+<h3 id="orgf55c6cc"><span class="section-number-3">4.9</span> <code>list-of-type</code></h3>
+<div class="outline-text-3" id="text-4-9">
+<p>
+Returns true if all elements of the list have the given type.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">list-of-type</span> (list type)
+  <span style="color: #8b2252;">"Check whether the elements of list are of type type."</span>
+  (list-of #'(<span style="color: #a020f0;">lambda</span> (x) (typep x type)) list))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7f46968" class="outline-3">
+<h3 id="org7f46968"><span class="section-number-3">4.10</span> <code>map-tuple</code></h3>
+<div class="outline-text-3" id="text-4-10">
+<p>
+The function <code>map-tuple</code> can be mimicked with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">loop</span> for (a b) on &lt;list&gt; while b collect #'(<span style="color: #a020f0;">lambda</span> (a b) ...))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org6e0491d" class="outline-3">
+<h3 id="org6e0491d"><span class="section-number-3">4.11</span> <code>mklist</code></h3>
+<div class="outline-text-3" id="text-4-11">
+<p>
+See <a href="#orgb6b1ca7"><code>ensure-list</code></a>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org04af744" class="outline-3">
+<h3 id="org04af744"><span class="section-number-3">4.12</span> <code>splice-if</code></h3>
+<div class="outline-text-3" id="text-4-12">
+<p>
+This function splices a list into another list as soon as the test holds on an
+item in the list.  This function resembles <code>subst-if</code> a bit, but does not
+operate on trees, but just on a single list.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">splice-if</span> (new test list)
+  <span style="color: #8b2252;">"Splice new into list list if test test holds.  If new is not a list but an</span>
+<span style="color: #8b2252;">item, the item is inserted into the list."</span>
+  (reduce #'(<span style="color: #a020f0;">lambda</span> (x y)
+              (<span style="color: #a020f0;">if</span> (funcall test x)
+                  (<span style="color: #a020f0;">if</span> (listp new) (append new y) (cons new y))
+                  (cons x y)))
+          list <span style="color: #483d8b;">:from-end</span> t <span style="color: #483d8b;">:initial-value</span> nil))
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf9b12be" class="outline-3">
+<h3 id="orgf9b12be"><span class="section-number-3">4.13</span> <code>split-list-on-first</code></h3>
+<div class="outline-text-3" id="text-4-13">
+<p>
+Splits a list on the first item that satisfies the given predicate.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">split-list-on-first</span> (predicate list)
+  <span style="color: #8b2252;">"Split the list on the first item that satisfies the predicate."</span>
+  (<span style="color: #a020f0;">loop</span> for (head . tail) on list
+     when (funcall predicate head) return (values first-part (cons head tail))
+     collect head into first-part))
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgf0f7f29" class="outline-3">
+<h3 id="orgf0f7f29"><span class="section-number-3">4.14</span> <code>walk-tree</code></h3>
+<div class="outline-text-3" id="text-4-14">
+<p>
+Apply a function to all atoms and conses of a tree.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">walk-tree</span> (tree function)
+  <span style="color: #8b2252;">"Walk a tree and apply function to all atoms and conses."</span>
+  (subst-if t (constantly nil) tree <span style="color: #483d8b;">:key</span> function))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9e5693b" class="outline-2">
+<h2 id="org9e5693b"><span class="section-number-2">5</span> Strings</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+This section contains the following utility functions for strings.
+</p>
+</div>
+
+<div id="outline-container-org9415d82" class="outline-3">
+<h3 id="org9415d82"><span class="section-number-3">5.1</span> <code>escape</code></h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Escape charachters in a string.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">escape</span> (string <span style="color: #228b22;">&amp;rest</span> to-be-escaped)
+  <span style="color: #8b2252;">"Returns a new string with all occurrences of to-be-escaped escaped (with a</span>
+<span style="color: #8b2252;">slash)."</span>
+  (apply #'replace-all-multiple string (<span style="color: #a020f0;">loop</span> for i in to-be-escaped
+                                          collect i
+                                          collect (format nil <span style="color: #8b2252;">"\\~a"</span> i))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0471bd7" class="outline-3">
+<h3 id="org0471bd7"><span class="section-number-3">5.2</span> <code>join</code></h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+The function <code>join</code> joins elements of a list together with a separator and
+returns a string.  It can be found in <code>cl-strings</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf261ab8" class="outline-3">
+<h3 id="orgf261ab8"><span class="section-number-3">5.3</span> <code>string-case</code></h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Provides a case statement that supports strings.  Available from <code>string-case</code>.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org8efa184" class="outline-3">
+<h3 id="org8efa184"><span class="section-number-3">5.4</span> <code>replace-all</code></h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+Replacing all occurences of a substring by another string.  Can be found in
+<code>cl-strings</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc041b2f" class="outline-3">
+<h3 id="orgc041b2f"><span class="section-number-3">5.5</span> <code>replace-all-multiple</code></h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+Replace all occurrences of multiple specifications in a string.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">replace-all-multiple</span> (string <span style="color: #228b22;">&amp;rest</span> specs)
+  <span style="color: #8b2252;">"Returns a new string based on specification specs where multiple</span>
+<span style="color: #8b2252;">replacements can be defined.</span>
+
+<span style="color: #8b2252;">Example: (replace-all-multiple \"input\" \"i\" \"o\" \"n\" \"ut\"), which should</span>
+<span style="color: #8b2252;">return \"output\"."</span>
+  (<span style="color: #a020f0;">loop</span> for (spec . replacement) on specs by #'cddr
+     do (<span style="color: #a020f0;">let</span> ((replacement (first replacement)))
+          (setf string (cl-strings:replace-all string spec replacement))))
+  string)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5b7337d" class="outline-2">
+<h2 id="org5b7337d"><span class="section-number-2">6</span> Hash-table</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+
+<div id="outline-container-orgd978b5f" class="outline-3">
+<h3 id="orgd978b5f"><span class="section-number-3">6.1</span> <code>copy-hash-table</code></h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Copies a hash-table.  Can be found in <code>alexandria</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga772c81" class="outline-3">
+<h3 id="orga772c81"><span class="section-number-3">6.2</span> <code>hash-table=</code></h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Tests whether two hash-tables are equal. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">hash-table=</span> (ht1 ht2 <span style="color: #228b22;">&amp;key</span> (test-for-value #'eq))
+  <span style="color: #8b2252;">"Compare whether hash-tables ht1 and ht2 are equal given equality function</span>
+<span style="color: #8b2252;">test-for-value that compares the values of the hash-tables."</span>
+  (and (eql (hash-table-count ht1) (hash-table-count ht2))
+       (<span style="color: #a020f0;">loop</span> for k being the hash-keys in ht1 using (hash-value v1)
+          always (<span style="color: #a020f0;">multiple-value-bind</span> (v2 present) (gethash k ht2)
+                   (and present (funcall test-for-value v1 v2))))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge819e65" class="outline-2">
+<h2 id="orge819e65"><span class="section-number-2">7</span> Files</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+
+<div id="outline-container-orgb7dfb30" class="outline-3">
+<h3 id="orgb7dfb30"><span class="section-number-3">7.1</span> <code>read-file-into-string</code></h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Reads a file into a string.  It is available in <code>alexandria</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3343495" class="outline-3">
+<h3 id="org3343495"><span class="section-number-3">7.2</span> <code>list-directory</code></h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+Listing the contents of a directory can be found in <code>cl-fad</code>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4480a4b" class="outline-2">
+<h2 id="org4480a4b"><span class="section-number-2">8</span> Macros</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+
+<div id="outline-container-org2f0d90c" class="outline-3">
+<h3 id="org2f0d90c"><span class="section-number-3">8.1</span> <code>def-methods</code></h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+Creates multiple methods with the same body given a specification of the
+parameters.  
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">eval-when</span> (<span style="color: #483d8b;">:compile-toplevel</span> <span style="color: #483d8b;">:load-toplevel</span> <span style="color: #483d8b;">:execute</span>)
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">create-specializer</span> (spec)
+  (<span style="color: #a020f0;">destructuring-bind</span> (var-name types) spec
+    (<span style="color: #a020f0;">loop</span> for type in types
+       collect (list var-name type))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">create-param-lists</span> (specs)
+  (<span style="color: #a020f0;">loop</span> for spec in specs
+     collect (<span style="color: #a020f0;">etypecase</span> spec
+               (symbol (list spec))
+               (list (create-specializer spec))))))
+
+(<span style="color: #a020f0;">defmacro</span> <span style="color: #0000ff;">def-methods</span> (name specs <span style="color: #228b22;">&amp;body</span> body)
+  <span style="color: #8b2252;">"Def-methods defines multiple methods, each with name name and the same</span>
+<span style="color: #8b2252;">body.  The number of methods depends on specs, which should be a list of specs.</span>
+<span style="color: #8b2252;">A spec is a list of name and a list of types or just a symbol if it is a regular</span>
+<span style="color: #8b2252;">parameter to the method.</span>
+
+<span style="color: #8b2252;">An example is: (def-methods multi ((a (string integer))</span>
+<span style="color: #8b2252;">                                   (b (string integer))</span>
+<span style="color: #8b2252;">                                    c)</span>
+<span style="color: #8b2252;">                  (dosomething a b c))"</span>
+  (<span style="color: #a020f0;">let</span> ((params (cartesian-product (create-param-lists specs))))
+    `(<span style="color: #a020f0;">progn</span>
+       ,@(<span style="color: #a020f0;">loop</span> for p in params collect
+              `(<span style="color: #a020f0;">defmethod</span> ,name ,p ,@body)))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf29de2e" class="outline-3">
+<h3 id="orgf29de2e"><span class="section-number-3">8.2</span> <code>with-gensyms</code> <a id="org3a0e423"></a></h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+Convenience macro to generate unique symbols within a macro, also see
+<a href="#org07e1d1b">8.3</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6da8273" class="outline-3">
+<h3 id="org6da8273"><span class="section-number-3">8.3</span> <code>once-only</code> <a id="org07e1d1b"></a></h3>
+<div class="outline-text-3" id="text-8-3">
+<p>
+Convenience function to ensure that a variable in a macro is evaluated only
+once.  Also see <a href="#org3a0e423">8.2</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb86acc5" class="outline-3">
+<h3 id="orgb86acc5"><span class="section-number-3">8.4</span> <code>def-standard-class</code></h3>
+<div class="outline-text-3" id="text-8-4">
+<p>
+Creates a standard class with initarg keywords and readers for the slots.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defmacro</span> <span style="color: #0000ff;">def-standard-class</span> (name superclasses slots)
+  <span style="color: #8b2252;">"Creates a class with superclasses and slots with for every slot:</span>
+<span style="color: #8b2252;">- a keyword for the slot to initialize</span>
+<span style="color: #8b2252;">- an initform that throws an error if you don't supply a value for the slot</span>
+<span style="color: #8b2252;">- a reader with the same name."</span>
+  `(<span style="color: #a020f0;">defclass</span> ,name ,superclasses
+     ,(<span style="color: #a020f0;">loop</span> for s in slots collect
+           `(,s <span style="color: #483d8b;">:initarg</span> ,(intern (string s) <span style="color: #483d8b;">:keyword</span>)
+                <span style="color: #483d8b;">:initform</span> (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Must supply ~a"</span> ',s)
+                <span style="color: #483d8b;">:reader</span> ,s))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8c242ed" class="outline-3">
+<h3 id="org8c242ed"><span class="section-number-3">8.5</span> <code>fixed-point</code></h3>
+<div class="outline-text-3" id="text-8-5">
+<p>
+Computes a fixed-point of a data-structure given a copy and compare function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defmacro</span> <span style="color: #0000ff;">fixed-point</span> (var copy-function compare-function <span style="color: #228b22;">&amp;body</span> body)
+  <span style="color: #8b2252;">"Compute a fixed point of var, comparing the var with compare-function and</span>
+<span style="color: #8b2252;">copying it with copy-function."</span>
+  (with-gensyms (old)
+    `(<span style="color: #a020f0;">loop</span> with ,old
+        do (setf ,old (funcall ,copy-function ,var))
+          ,@body
+        until (funcall ,compare-function ,old ,var)
+          finally (<span style="color: #a020f0;">return</span> ,var))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc52b69d" class="outline-3">
+<h3 id="orgc52b69d"><span class="section-number-3">8.6</span> <code>unexport-symbols</code></h3>
+<div class="outline-text-3" id="text-8-6">
+<p>
+Unexport symbols that are not defined to be exported in a package.  A typical
+usage is to call this in front of a <code>defpackage</code> to make sure that the compiler
+does not complain about symbols that are visible but are not defined to be
+exported in the package declaration.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defmacro</span> <span style="color: #0000ff;">unexport-symbols</span> (package)
+  <span style="color: #8b2252;">"Unexport symbols that are defined dynamically, i.e. not in a 'defpackage' </span>
+<span style="color: #8b2252;">definition."</span>
+  (with-gensyms (s)
+    `(<span style="color: #a020f0;">eval-when</span> (<span style="color: #483d8b;">:compile-toplevel</span>)
+       (<span style="color: #a020f0;">when</span> (find-package ,package)
+         (do-external-symbols (,s ,package)
+           (unexport ,s ,package))))))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga7769e1" class="outline-2">
+<h2 id="orga7769e1"><span class="section-number-2">9</span> Copying <a id="org03eacbd"></a></h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Copyright 2018 Pieter Hijma
+</p>
+
+<p>
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+</p>
+
+<p>
+<a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a>
+</p>
+
+<p>
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2019-06-17 Mon 11:54</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

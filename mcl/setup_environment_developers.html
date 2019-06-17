@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-06-17 Mon 11:54 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Setting up an environment for developers</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Setting up an environment for developers</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgcb5a12d">1. Introduction</a></li>
+<li><a href="#org0438a20">2. Emacs configuration</a>
+<ul>
+<li><a href="#org7e8ffd6">2.1. Introduction</a>
+<ul>
+<li><a href="#orgebbf266">2.1.1. How it works</a></li>
+</ul>
+</li>
+<li><a href="#org7f2f1e9">2.2. The Emacs configuration file</a>
+<ul>
+<li><a href="#org4aa0f29">2.2.1. Package configuration</a></li>
+<li><a href="#org7c8dc5b">2.2.2. Automatic compilation</a></li>
+<li><a href="#orgdb25425">2.2.3. General Configuration</a></li>
+<li><a href="#org580e3bc">2.2.4. Org</a></li>
+<li><a href="#orgb90c815">2.2.5. Editing Lisps</a></li>
+<li><a href="#org0b65809">2.2.6. Other modes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org77b1215">3. Snippets</a></li>
+<li><a href="#org04025c9">4. Tutorial</a>
+<ul>
+<li><a href="#org63651c5">4.1. Overview of the generic packages</a>
+<ul>
+<li><a href="#org3a27846">4.1.1. Ido</a></li>
+<li><a href="#orgef99f51">4.1.2. Magit</a></li>
+</ul>
+</li>
+<li><a href="#org061a4bc">4.2. Working in MCL</a>
+<ul>
+<li><a href="#org293514c">4.2.1. The REPL</a></li>
+<li><a href="#org4275d2a">4.2.2. Logging</a></li>
+<li><a href="#orgaa9b9cd">4.2.3. Editing org-files</a></li>
+<li><a href="#orgd96d7bf">4.2.4. Debugging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgcb5a12d" class="outline-2">
+<h2 id="orgcb5a12d"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This document describes how to set up an environment so that developers can
+work properly with MCL.  It will be mainly based on Emacs, its org-mode, and
+Slime, a REPL that interacts with Common Lisp.  The following sections describe
+a convenient set up for Emacs.  The final section is a small tutorial
+describing how to work with MCL and Emacs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0438a20" class="outline-2">
+<h2 id="org0438a20"><span class="section-number-2">2</span> Emacs configuration</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org7e8ffd6" class="outline-3">
+<h3 id="org7e8ffd6"><span class="section-number-3">2.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+This document describes a configuration of Emacs for conveniently work in MCL.
+This file <code>$MCL_ROOT_DIR/doc/emacs_configuration.org</code> can be
+copied to <code>$HOME/.emacs.d/</code>.
+</p>
+</div>
+
+<div id="outline-container-orgebbf266" class="outline-4">
+<h4 id="orgebbf266"><span class="section-number-4">2.1.1</span> How it works</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+With just a few lines of elisp in the <code>.emacs</code> file, we can extract the elisp
+code from this org-mode file (also known as tangling), compile and execute
+it. The next time Emacs is opened, it detects the <code>.elc</code> file and tries to
+load it, but only if it's newer than the <code>.org</code> file. So, org makes it easy
+to document the configuration file, while still keeping it fast to load.  The
+contents of the <code>.emacs</code> file should contain this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(package-initialize)
+
+(<span style="color: #a020f0;">let</span> ((org-config-file <span style="color: #8b2252;">"~/.emacs.d/emacs_configuration.org"</span>)
+      (elc-config-file <span style="color: #8b2252;">"~/.emacs.d/emacs_configuration.elc"</span>))
+  (<span style="color: #a020f0;">if</span> (file-newer-than-file-p org-config-file elc-config-file)
+      (org-babel-load-file org-config-file t)
+    (load elc-config-file)))
+</pre>
+</div>
+
+<p>
+Since the file may already contain definitions, we do not tangle the file, but
+it should be edited by hand.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org7f2f1e9" class="outline-3">
+<h3 id="org7f2f1e9"><span class="section-number-3">2.2</span> The Emacs configuration file</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-org4aa0f29" class="outline-4">
+<h4 id="org4aa0f29"><span class="section-number-4">2.2.1</span> Package configuration</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+We use <code>use-package</code> to install Emacs packages in a modular and reliable way.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">package</span>)
+
+(<span style="color: #a020f0;">eval-and-compile</span>
+  (package-initialize)
+  (<span style="color: #a020f0;">setq</span> package-archives '((<span style="color: #8b2252;">"gnu"</span> . <span style="color: #8b2252;">"http://elpa.gnu.org/packages/"</span>)
+                           (<span style="color: #8b2252;">"marmalade"</span> . <span style="color: #8b2252;">"http://marmalade-repo.org/packages/"</span>)
+                           (<span style="color: #8b2252;">"org"</span> . <span style="color: #8b2252;">"http://orgmode.org/elpa/"</span>)
+                           (<span style="color: #8b2252;">"melpa"</span> . <span style="color: #8b2252;">"http://melpa.milkbox.net/packages/"</span>)))
+
+  (<span style="color: #a020f0;">unless</span> (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package)))
+
+(<span style="color: #a020f0;">require</span> '<span style="color: #008b8b;">use-package</span>)
+(<span style="color: #a020f0;">setq</span> use-package-always-ensure t)
+</pre>
+</div>
+
+<p>
+<code>package-initialize</code> is executed in an <code>eval-and-compile</code> block to ensure that
+it is loaded properly compile time.  
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7c8dc5b" class="outline-4">
+<h4 id="org7c8dc5b"><span class="section-number-4">2.2.2</span> Automatic compilation</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+Auto compile everything on load, in order to speed up future loads.
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> auto-compile
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:config</span>
+  (<span style="color: #a020f0;">progn</span>
+    (auto-compile-on-load-mode)
+    (<span style="color: #a020f0;">setq</span> load-prefer-newer t)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdb25425" class="outline-4">
+<h4 id="orgdb25425"><span class="section-number-4">2.2.3</span> General Configuration</h4>
+<div class="outline-text-4" id="text-2-2-3">
+</div>
+<ol class="org-ol">
+<li><a id="orga2b86d3"></a>Visual Appearance<br />
+<div class="outline-text-5" id="text-2-2-3-1">
+<p>
+Now that we have the packages configured, we want to clean up the
+visual appearances of Emacs.  You can start Emacs full-screen if wanted:
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> initial-frame-alist '((fullscreen . maximized)))
+(<span style="color: #a020f0;">setq</span> inhibit-startup-screen t)
+(<span style="color: #a020f0;">setq</span> inhibit-startup-message t)
+</pre>
+</div>
+
+<p>
+The following settings set the modeline to use column numbers:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(column-number-mode 1)
+</pre>
+</div>
+</div>
+</li>
+
+
+<li><a id="orge531fef"></a>Backup files<br />
+<div class="outline-text-5" id="text-2-2-3-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> make-backup-files nil)
+</pre>
+</div>
+</div>
+</li>
+
+
+<li><a id="org7cc44bb"></a>IDO Mode<br />
+<div class="outline-text-5" id="text-2-2-3-3">
+<p>
+Simple, yet powerful extension to Emacs for conveniently search files or load
+buffers from SSH nodes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> ido
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:config</span> (ido-mode t))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org8131bfa"></a>Version Control<br />
+<div class="outline-text-5" id="text-2-2-3-4">
+<p>
+Magit is a convenient wrapper for git.  We can activate it with a keybinding:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> magit
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:bind</span> (<span style="color: #8b2252;">"C-x g"</span> . magit-status))
+</pre>
+</div>
+
+<p>
+The following package asks whether to exit Emacs if there are still unpushed
+changes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> vc-check-status
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:init</span> (vc-check-status-activate 1))
+</pre>
+</div>
+
+<p>
+Emacs often asks to follow symlinks.  By default we turn it off as sometimes
+those symlinks are part of a different version controlled system.  
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> vc-follow-symlinks nil)
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgb6e1133"></a>Diff<br />
+<div class="outline-text-5" id="text-2-2-3-5">
+<p>
+The following functions ensure (together with a shell-script <code>ediff</code>) that it
+is possible to call <code>ediff</code> on two files.  The usage is <code>emacs -diff file1
+file2</code>. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">command-line-diff</span> (switch)
+  (<span style="color: #a020f0;">let</span> ((file1 (<span style="color: #a020f0;">pop</span> command-line-args-left))
+        (file2 (<span style="color: #a020f0;">pop</span> command-line-args-left)))
+    (ediff file1 file2)))
+(add-to-list 'command-switch-alist '(<span style="color: #8b2252;">"diff"</span> . command-line-diff))
+</pre>
+</div>
+
+<p>
+The following options make the result nice:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> ediff-diff-options <span style="color: #8b2252;">"-w"</span>)
+(<span style="color: #a020f0;">setq</span> ediff-split-window-function 'split-window-horizontally)
+(<span style="color: #a020f0;">setq</span> ediff-window-setup-function 'ediff-setup-windows-plain)
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org34e0dac"></a>Snippets<br />
+<div class="outline-text-5" id="text-2-2-3-6">
+<p>
+Snippets is done with <code>yasnippet</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> yasnippet
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:init</span> (<span style="color: #a020f0;">setq</span> yas-snippet-dirs '(<span style="color: #8b2252;">"~/.emacs.d/snippets"</span>))
+  <span style="color: #483d8b;">:config</span>
+  (yas-reload-all)
+  (add-hook 'org-mode-hook #'yas-minor-mode))
+</pre>
+</div>
+
+<p>
+When adding a new snippet, move to the <code>snippets</code> top-level directory and
+execute <code>yas-compile-directory</code>.
+</p>
+</div>
+</li>
+
+<li><a id="org2d8095d"></a>General settings<br />
+<div class="outline-text-5" id="text-2-2-3-7">
+<p>
+The following makes sure that you don't have to type yes or no all the time:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defalias</span> '<span style="color: #0000ff;">yes-or-no-p</span> 'y-or-n-p)
+
+(define-key text-mode-map (kbd <span style="color: #8b2252;">"TAB"</span>) 'tab-to-tab-stop)
+(<span style="color: #a020f0;">setq</span> tab-stop-list (number-sequence 4 120 4))
+
+(<span style="color: #a020f0;">setq</span> dabbrev-case-fold-search nil)
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org580e3bc" class="outline-4">
+<h4 id="org580e3bc"><span class="section-number-4">2.2.4</span> Org</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<p>
+Org mode needs much configuration, especially for Babel, the system that allows
+incorporation of source code into <code>.org</code> file.  Instead of loading
+package <code>org</code>, we use <code>org-plus-contrib</code> which also gives the contributed
+modules.
+</p>
+
+<p>
+<b>Note:</b> Org should be installed without any org buffer activated!  So,
+consolidate the configuration file, close all Emacs instances to be sure and
+install it from a fresh Emacs.  Sometimes, it is necessary to remove all *.elc
+files and start Emacs again.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> org
+  <span style="color: #483d8b;">:ensure</span> org-plus-contrib
+  <span style="color: #483d8b;">:config</span> (<span style="color: #a020f0;">progn</span> 
+            (org-babel-do-load-languages
+             'org-babel-load-languages
+             '((lisp . t)
+               (emacs-lisp . t)
+               (shell . t)))
+            (<span style="color: #a020f0;">setq</span> org-src-fontify-natively t)
+            (<span style="color: #a020f0;">setq</span> org-src-tab-acts-natively t)
+            (<span style="color: #a020f0;">setq</span> org-src-preserve-indentation t)))
+</pre>
+</div>
+
+<p>
+The following function determines which languages can be immediately executed:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">my-org-confirm-babel-evaluate</span> (lang body)
+  (not (<span style="color: #a020f0;">or</span> (string= lang <span style="color: #8b2252;">"sh"</span>)
+           (string= lang <span style="color: #8b2252;">"lisp"</span>))))
+(<span style="color: #a020f0;">setq</span> org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+</pre>
+</div>
+</div>
+
+<ol class="org-ol">
+<li><a id="org92c2cc4"></a>Babel<br />
+<ol class="org-ol">
+<li><a id="orgd4aeb1d"></a>Babel for Common Lisp<br />
+<div class="outline-text-6" id="text-2-2-4-1-1">
+<p>
+Below are various functions for editing Common Lisp files and files in general
+in Org Babel.
+</p>
+
+<p>
+The following function adds a property to a drawer and is adapted from
+<code>org-entry-put</code> in the org source-code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">org-add-to-property</span> (property value)
+  (<span style="color: #a020f0;">cond</span> ((null value) (<span style="color: #a020f0;">setq</span> value <span style="color: #8b2252;">""</span>))
+        ((not (stringp value)) (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"Properties values should be strings"</span>))
+        ((not (org--valid-property-p property))
+         (<span style="color: #ff0000; font-weight: bold;">user-error</span> <span style="color: #8b2252;">"Invalid property name: \"%s\""</span> property)))
+  (<span style="color: #a020f0;">org-with-point-at</span> nil
+    (org-back-to-heading t)
+    (<span style="color: #a020f0;">let*</span> ((beg (point))
+           (range (org-get-property-block beg 'force))
+           (end (cdr range))
+           (case-fold-search t))
+      (goto-char (car range))
+      (<span style="color: #a020f0;">if</span> (re-search-forward (org-re-property property nil t) end t)
+          (goto-char (match-beginning 0))
+        (goto-char end))
+      (insert <span style="color: #8b2252;">"\n"</span>)
+      (backward-char)
+      (insert <span style="color: #8b2252;">":"</span> property <span style="color: #8b2252;">":"</span>)
+      (<span style="color: #a020f0;">and</span> value (insert <span style="color: #8b2252;">" "</span> value))
+      (org-indent-line)
+      (run-hook-with-args 'org-property-changed-functions property value))))
+</pre>
+</div>
+
+<p>
+The following functions specify tangle arguments for property drawers:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">set-header-arguments-lisp-all</span> (tangle package)
+  (<span style="color: #a020f0;">interactive</span> <span style="color: #8b2252;">"F:tangle: \ns:package: "</span>)
+  (org-add-to-property <span style="color: #8b2252;">"header-args+"</span>
+                       (format <span style="color: #8b2252;">":tangle \"%s\""</span> (file-relative-name tangle)))
+  (org-add-to-property <span style="color: #8b2252;">"header-args+"</span> (format <span style="color: #8b2252;">":package \"%s\""</span> package)))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">set-header-arguments-lisp-tangle</span> (tangle)
+  (<span style="color: #a020f0;">interactive</span> <span style="color: #8b2252;">"F:tangle: "</span>)
+  (org-add-to-property <span style="color: #8b2252;">"header-args+"</span>
+                       (format <span style="color: #8b2252;">":tangle \"%s\""</span> (file-relative-name tangle))))
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">set-header-arguments-lisp-package</span> (package)
+  (<span style="color: #a020f0;">interactive</span> <span style="color: #8b2252;">"s:package: "</span>)
+  (org-add-to-property <span style="color: #8b2252;">"header-args+"</span> (format <span style="color: #8b2252;">":package \"%s\""</span> package)))
+</pre>
+</div>
+
+<p>
+The following function sets the right package for the buffer for interaction
+with slime:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">org-edit-for-common-lisp</span> ()
+  <span style="color: #8b2252;">"Calls an editor for lisp and tries to set the package for the </span>
+<span style="color: #8b2252;">buffer to what is defined in the org property :package"</span>
+  (<span style="color: #a020f0;">interactive</span>)
+  (<span style="color: #a020f0;">let</span> ((element (org-element-at-point)))
+    (<span style="color: #a020f0;">case</span> (org-element-type element)
+      (src-block 
+       (<span style="color: #a020f0;">let*</span> ((info (org-babel-get-src-block-info))
+              (params (nth 2 info))
+              (package (cdr (assq <span style="color: #483d8b;">:package</span> params))))
+         (org-edit-src-code)
+         (<span style="color: #a020f0;">if</span> package
+             (<span style="color: #a020f0;">setq</span> slime-buffer-package package))))
+      (otherwise
+       (org-edit-special)))))
+</pre>
+</div>
+
+<p>
+The following key is defined globally, to be able to jump back from Org tangled
+code to the original Org file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(global-set-key (kbd <span style="color: #8b2252;">"C-c j"</span>) (<span style="color: #a020f0;">lambda</span> ()
+                                (<span style="color: #a020f0;">interactive</span>)
+                                (org-babel-tangle-jump-to-org)
+                                (org-edit-for-common-lisp)))
+</pre>
+</div>
+
+<p>
+The following keys work in Org mode for defining the right package and
+tangle-file for a section in a property drawer.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-hook 'org-mode-hook (<span style="color: #a020f0;">lambda</span> ()
+                           (local-set-key (kbd <span style="color: #8b2252;">"C-c '"</span>)
+                                          'org-edit-for-common-lisp)
+                           (local-set-key (kbd <span style="color: #8b2252;">"C-c h a a"</span>)
+                                          'set-header-arguments-lisp-all)
+                           (local-set-key (kbd <span style="color: #8b2252;">"C-c h a p"</span>)
+                                          'set-header-arguments-lisp-package)
+                           (local-set-key (kbd <span style="color: #8b2252;">"C-c h a t"</span>)
+                                          'set-header-arguments-lisp-tangle)))
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org1f51030"></a>Packages for org<br />
+<div class="outline-text-6" id="text-2-2-4-1-2">
+<p>
+The package <code>htmlize</code> ensures syntax-highlighted code in org files.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> htmlize
+  <span style="color: #483d8b;">:ensure</span> t)
+</pre>
+</div>
+
+<p>
+The following package ensure tangling and generating HTML code in different
+processes:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> async
+  <span style="color: #483d8b;">:ensure</span> t)
+(<span style="color: #a020f0;">use-package</span> deferred
+  <span style="color: #483d8b;">:ensure</span> t)
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-orgb90c815" class="outline-4">
+<h4 id="orgb90c815"><span class="section-number-4">2.2.5</span> Editing Lisps</h4>
+<div class="outline-text-4" id="text-2-2-5">
+</div>
+<ol class="org-ol">
+<li><a id="org7df7662"></a>General configuration<br />
+<div class="outline-text-5" id="text-2-2-5-1">
+<p>
+Paredit-mode is a powerful mode for editing Lisp source files that does need
+some time to become comfortable with it, but in the end it is a very valuable
+way to edit lisp files.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> paredit
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:config</span> (<span style="color: #a020f0;">progn</span>
+            (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+            (add-hook 'eval-expression-minibuffer-setup-hook
+                      #'enable-paredit-mode)
+            (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+            (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+            (add-hook 'slime-repl-mode-hook (<span style="color: #a020f0;">lambda</span> () (paredit-mode +1)))))
+</pre>
+</div>
+
+
+<p>
+Another helpful mode is showing the parentheses:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(show-paren-mode 1)
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgf33cbd2"></a>Slime<br />
+<div class="outline-text-5" id="text-2-2-5-2">
+<p>
+Slime is an advanced REPL for lisp, we set the Common-Lisp indentation function
+and we add a mapping for compiling a complete buffer:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> slime
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:init</span>
+  (<span style="color: #a020f0;">setq</span> inferior-lisp-program <span style="color: #8b2252;">"/usr/bin/sbcl"</span>)
+  <span style="color: #483d8b;">:config</span>
+  (slime-setup '(slime-fancy slime-asdf))
+  (<span style="color: #a020f0;">setq</span> slime-enable-evaluate-in-emacs t)
+  (add-hook 'lisp-mode-hook
+           (<span style="color: #a020f0;">lambda</span> ()
+             (set (make-local-variable 'lisp-indent-function)
+                  'common-lisp-indent-function)
+             (local-set-key (kbd <span style="color: #8b2252;">"C-c b"</span>)
+                            'compile-buffer))))
+</pre>
+</div>
+
+<p>
+The following packages enable auto-completion:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> ac-slime
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:requires</span> (auto-complete auto-complete-config popup)
+  <span style="color: #483d8b;">:init</span>
+  (add-to-list 'ac-dictionary-directories
+               <span style="color: #8b2252;">"~/.emacs.d/elpa/auto-complete-20150618.1949/dict"</span>)
+  (ac-config-default)
+  <span style="color: #483d8b;">:config</span>
+  (add-hook 'slime-mode-hook 'set-up-slime-ac)
+  (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+  (add-to-list 'ac-modes 'slime-repl-mode)
+  (add-to-list 'ac-modes 'lisp-mode)
+  (ac-config-default))
+</pre>
+</div>
+
+<p>
+The following function compiles a complete buffer:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">compile-buffer</span> ()
+  (<span style="color: #a020f0;">interactive</span>)
+  (slime-compile-region (point-min) (point-max)))
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org0b65809" class="outline-4">
+<h4 id="org0b65809"><span class="section-number-4">2.2.6</span> Other modes</h4>
+<div class="outline-text-4" id="text-2-2-6">
+</div>
+<ol class="org-ol">
+<li><a id="org16de14d"></a>OpenCL<br />
+<div class="outline-text-5" id="text-2-2-6-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">use-package</span> opencl-mode
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:config</span> (add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.cl\\'"</span> . opencl-mode)))
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org77b1215" class="outline-2">
+<h2 id="org77b1215"><span class="section-number-2">3</span> Snippets</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The following snippets make it easier to work with org-mode.  The tutorial will
+discuss this.  This snippet creates a <code>src</code> block:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #b22222;"># -*- mode: snippet; require-final-newline: nil -*-</span>
+<span style="color: #b22222;"># name: org-babel insert code block</span>
+<span style="color: #b22222;"># key: src</span>
+<span style="color: #b22222;"># --</span>
+<span style="color: #b22222;">#+begin_src lisp</span>
+$0
+<span style="color: #b22222;">#+end_src</span>
+</pre>
+</div>
+
+<p>
+This snippet creates a src block for a package definition:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #b22222;"># -*- mode: snippet; require-final-newline: nil -*-</span>
+<span style="color: #b22222;"># name: org-babel insert code block for packages</span>
+<span style="color: #b22222;"># key: package</span>
+<span style="color: #b22222;"># --</span>
+<span style="color: #b22222;">#+header: :tangle "system/$1/packages.lisp"</span>
+<span style="color: #b22222;">#+begin_src lisp :mkdirp yes</span>
+(<span style="color: #a020f0;">in-package</span> <span style="color: #483d8b;">:cl-user</span>)
+
+(<span style="color: #a020f0;">defpackage</span> <span style="color: #228b22;">:$2</span>
+  (<span style="color: #483d8b;">:use</span> <span style="color: #483d8b;">:cl</span> $3)
+  (<span style="color: #483d8b;">:export</span> $0))
+<span style="color: #b22222;">#+end_src</span>
+</pre>
+</div>
+
+<p>
+The following snippet splits a src block in half:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #b22222;"># -*- mode: snippet; require-final-newline: nil -*-</span>
+<span style="color: #b22222;"># name: org-babel split a code block</span>
+<span style="color: #b22222;"># key: split</span>
+<span style="color: #b22222;"># --</span>
+<span style="color: #b22222;">#+end_src</span>
+$0
+#+begin_src lisp
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org04025c9" class="outline-2">
+<h2 id="org04025c9"><span class="section-number-2">4</span> Tutorial</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+This tutorial assumes that <code>$HOME/.emacs</code> loads
+<code>$HOME/.emacs.d/emacs_configuration.org</code> as described in the previous section.
+After starting up Emacs, the script will automatically download and load all
+the required packages.  Emacs compiled the configuration file and most likely
+issued some warnings.  We will close Emacs with <code>C-x C-c</code> and restart it
+immediately.  The warnings are now likely to be gone and will only reappear if
+<code>$HOME/.emacs.d/emacs_configuration.org</code> is changed.
+</p>
+</div>
+
+<div id="outline-container-org63651c5" class="outline-3">
+<h3 id="org63651c5"><span class="section-number-3">4.1</span> Overview of the generic packages</h3>
+<div class="outline-text-3" id="text-4-1">
+</div>
+<div id="outline-container-org3a27846" class="outline-4">
+<h4 id="org3a27846"><span class="section-number-4">4.1.1</span> Ido</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<p>
+Ido-mode gives autocompletion when searching files.  For example with <code>C-x C-f</code>
+you can browse to <code>$MCL_ROOT_DIR</code>.  When arrived there, you can do <code>C-d</code> to see
+the listing of the directory.
+</p>
+
+<p>
+Similarly, it is possible to list the contents on a host <code>host</code> over SSH using:
+<code>C-x C-f / / ssh:host: &lt;ENTER&gt; &lt;ENTER&gt;</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgef99f51" class="outline-4">
+<h4 id="orgef99f51"><span class="section-number-4">4.1.2</span> Magit</h4>
+<div class="outline-text-4" id="text-4-1-2">
+<p>
+This mode allows one execute git commands.  For example, <code>$MCL_ROOT_DIR</code> is
+under version control, so we can go there as explained in the previous section
+and perform <code>C-x g</code> on the directory listing.  With <code>?</code> you get an overview of
+available commands.  With <code>q</code> you close the buffers.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org061a4bc" class="outline-3">
+<h3 id="org061a4bc"><span class="section-number-3">4.2</span> Working in MCL</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+
+<div id="outline-container-org293514c" class="outline-4">
+<h4 id="org293514c"><span class="section-number-4">4.2.1</span> The REPL</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<p>
+Usually, programming lisp is done via a REPL <code>(loop (print (eval (read))))</code>
+backwards, which is actually a small lisp program that gives you a REPL.  You
+can try this out in the actual REPL.  Stop it with <code>C-c C-c</code> and then ABORT.
+</p>
+
+<p>
+The REPL we are using is called Slime and can be started with: <code>M-x slime</code>.
+From this we can insert lisp expressions such as <code>(+ 2 2)</code> that will be
+evaluated and printed.  Inside the Slime buffer the <code>,</code> can be used to execute
+commands for Slime itself.  For example, we can change the directory of the
+Slime process with <code>, cd</code>.  We can also use it to load MCL: <code>, load-system
+&lt;ENTER&gt; mcl</code> (autocomplete should work).  MCL will be compiled.
+</p>
+
+<p>
+When finished, we can execute the MCL tests.  The tests have to be executed
+from <code>$MCL_ROOT_DIR</code>, so we can go there with <code>, cd</code>.  We can then evaluate the
+lisp expression: <code>(test-mcl:test-mcl)</code>, autocomplete should work as well.  This
+executes the function <code>test-mcl</code> in package <code>test-mcl</code>.
+</p>
+
+<p>
+By default, the REPL starts in package <code>cl-user</code>, but we can change that to
+<code>mcl</code> by doing <code>, in &lt;ENTER&gt; mcl</code>.  We can now execute function in this
+package, for example (auto-complete should work):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(print-pretty <span style="color: #8b2252;">"input/mcpl/matrixmultiplication/matrixmultiplication.mcl"</span>)
+</pre>
+</div>
+
+<p>
+or a function that generates code into <code>$MCL_OUTPUT_DIR</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(gen)
+</pre>
+</div>
+
+<p>
+These functions are defined in <code>src/mcl.org</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4275d2a" class="outline-4">
+<h4 id="org4275d2a"><span class="section-number-4">4.2.2</span> Logging</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<p>
+These functions show level 1 of logging, but it is also possible to
+increase the amount of logging:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(logging:set-level 2)
+</pre>
+</div>
+
+<p>
+When executing <code>(gen)</code> again, we not only see the passes, but also the
+micro-passes.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgaa9b9cd" class="outline-4">
+<h4 id="orgaa9b9cd"><span class="section-number-4">4.2.3</span> Editing org-files</h4>
+<div class="outline-text-4" id="text-4-2-3">
+<p>
+Org-mode allows one to do literate programming.  The <code>.org</code> files form the
+source and these files are tangled to <code>.lisp</code> files that will reside in
+<code>$MCL_ROOT_DIR/src/system</code>.  The <code>.org</code> files can also be exported to <code>.html</code>
+or <code>.pdf</code> and then it serves as documentation.  The lisp code resides in code
+blocks that start with <code>#+begin_src</code> and end with <code>#+end_src</code>.  Emacs is an
+editor that supports multiple modes and syntax highlighting within one file.
+You can directly code in the source blocks, but it is also possible to open a
+new buffer with the language's native mode.  You can open such a buffer by
+moving into a code block and do <code>C-c '</code>.  
+</p>
+
+<p>
+For example, we could open the file <code>src/mcl.org</code>, move into the first code
+block that tangles into the file <code>system/packages.lisp</code> and do <code>C-c '</code>.  We get
+a new buffer with major mode <code>Lisp</code>, minor modes <code>Paredit</code>, <code>OrgSrc</code>, and
+<code>adoc</code>, and the Slime minor mode recognizes that we are in package <code>cl-user</code>
+with <code>sbcl</code> as backend.  If we move to the <code>defpackage</code> expression, we can
+compile this expression with <code>C-c C-c</code>.  This expression is compiled in package
+<code>cl-user</code>.  We can close the buffer with <code>C-c '</code> again.  
+</p>
+
+<p>
+If we move to subsection <i>The main file</i>, we can see that the subsection has
+several properties (open with TAB).  The properties state that each source
+block within this section has additional header arguments, namely that the
+package should be <code>:mcl</code> and that the source blocks will tangle into file
+<code>system/main.lisp</code>.  If we move to the first source block in the file and open
+the native buffer with <code>C-c '</code>, we see that Slime knows that the package is
+<code>mcl</code> instead of <code>cl-user</code>.  It deducts this from the <code>(in-package :mcl)</code>
+expression.  If we move to the source block below, then there is no
+<code>(in-package :mcl)</code> expression, but since we defined the <code>:package</code> property in
+this subsection, Slime knows that we should compile function in the package
+<code>:mcl</code>.  Every start of a <code>.lisp</code> file needs to have an <code>(in-package
+&lt;package&gt;)</code> expression, otherwise the package is assumed to be <code>cl-user</code>.
+<b>Note</b> that this is a common mistake why functions fail to compile.
+</p>
+
+<p>
+We added several convenience functions to make editing lisp easier from within
+Org-mode.  We can add a new lisp source blocks by typing <code>src&lt;TAB&gt;</code>.  This
+expands a snippet that is defined in <code>$HOME/.emacs.d/snippets/org-mode</code>.  We
+can split large source blocks by typing <code>split&lt;TAB&gt;</code>.  We can also create a
+source block for defining new packages with several entry points to fill in the
+gaps with <code>package&lt;TAB&gt;</code>.  Within a new section, we can define a property list
+as we have seen above with <code>C-c h a a</code>.  This function will ask for a file to
+tangle into (autocompletion works) and the package.  It is also possible to
+only add a property for tangling (<code>C-c h a t</code>) or only for a package (<code>C-c h a
+p</code>).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd96d7bf" class="outline-4">
+<h4 id="orgd96d7bf"><span class="section-number-4">4.2.4</span> Debugging</h4>
+<div class="outline-text-4" id="text-4-2-4">
+<p>
+Since Common-Lisp is a dynamically typed language, we applied test-driven
+development.  This means that most of the functionality has its own tests.  If
+MCL runs in Slime, and the program crashes, you will end up in the Slime
+debugger.  In the Slime debugger, it is possible to analyze the whole stack,
+change datastructures within the frames, jump to the function that causes the
+problem, recompile the problematic function, restart a couple of frames down,
+move datastructures to a new REPL instance, and modify them.
+</p>
+
+<p>
+For instance, it is common that we want to inspect the AST after some
+transformation.   For example, if we flatten an MCL file (transform the
+multi-dimensional types to one-dimensional ones), we also translate the file.
+So, if we run in package <code>:mcl</code> (in Slime <code>, in mcl</code>):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(logging:set-level 1)
+(flatten <span style="color: #8b2252;">"input/mcpl/matrixmultiplication/matrixmultiplication.mcl"</span> <span style="color: #8b2252;">"gpu"</span>)
+</pre>
+</div>
+
+<p>
+We can see that pass <i>translate</i> is being executed before pass <i>flatten-types</i>.
+Suppose, we want to inspect the AST just before <i>flatten-types</i> is executed, we
+could go to the file <code>src/passes.org</code>, move to section <i>Flatten types</i>, move
+into the first source block, open it with <code>C-c '</code>, add a <code>(break)</code> expression
+in the function <code>flatten-module</code>, and compile it with <code>C-c C-c</code>.
+</p>
+
+<p>
+We run the same expression again (with <code>M-p</code>, we get the previous expression):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(flatten <span style="color: #8b2252;">"input/mcpl/matrixmultiplication/matrixmultiplication.mcl"</span> <span style="color: #8b2252;">"gpu"</span>)
+</pre>
+</div>
+
+<p>
+We now end up in the Slime debugger SLDB.  We can move to frame 0 and
+press &lt;ENTER&gt;.  This frame has variable <code>module</code>.  We can inspect the
+expression of the variable by moving to the <code>#&lt;AST-MCPL:...&gt;</code> expression,
+called a presentation, and press &lt;ENTER&gt;.  We can now walk the AST by moving
+into <code>code</code>, <code>funcs</code>, <code>func</code>, <code>code-block</code> etc.  Walking back can be done with
+<code>l</code>.  It is also possible to change the values.  We can quit the presentation
+mode with <code>q</code>. 
+</p>
+
+<p>
+Another possibility is to load the value in the REPL from SLDB, by moving to
+the representation and press <code>M-&lt;ENTER&gt;</code>.  This brings us back to the REPL with
+the presentation evaluated inside the REPL.  We can store it in a variable by
+evaluating the following expression, where <code>*</code> represents the last expression,
+which is in this case the AST expression.  
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defparameter</span> <span style="color: #a0522d;">*ast*</span> *)
+</pre>
+</div>
+
+<p>
+Evaluating this expression returns the symbol <code>*ast*</code> and if we evaluate it, we
+get its presentation again.  We can move to the presentation and do <code>C-c v TAB</code>
+to inspect the value in the same way as above.  Note that our program is still
+running in the background and awaiting our input to continue or not.  We could
+now change a value in the AST and print it with the following expression:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(print-pretty:pp *ast*)
+</pre>
+</div>
+
+<p>
+Moving back to the debugger buffer, we could decide to step through the program
+by hitting <code>s</code>.  We can press <code>a</code> to abort.
+</p>
+
+<p>
+In general, it is possible to jump from the debugger back to the source code.
+In the case of function <code>flatten-module</code> this is not possible because we
+compiled it in a buffer that is disconnected from the source file.  However, in
+functions that are compiled from the tangled lisp files, we can jump back to
+the originating source.  For example, if we run the following expression again,
+we end up in the debugger again, because of the <code>(break)</code> statement.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(flatten <span style="color: #8b2252;">"input/mcpl/matrixmultiplication/matrixmultiplication.mcl"</span> <span style="color: #8b2252;">"gpu"</span>)
+</pre>
+</div>
+
+<p>
+We cannot move to <code>flatten-module</code>.  However, if we move to frame 1 below
+and move to <code>(passes:do-flatten-types)</code> and press <code>M-.</code>, we move to the lisp
+file that was tangled from the <code>.org</code> file.  This file is read-only and should
+not be edited.  With the command <code>C-c j</code> we jump back to the <code>.org</code> file where
+<code>do-flatten-types</code> was defined, and native buffer is opened immediately where
+we can edit the function.  We can close the buffer again with <code>C-c '</code>.  
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2019-06-17 Mon 11:54</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-06-17 Mon 11:54 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Simple Sets</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Simple Sets</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf5eb64d">1. Introduction</a></li>
+<li><a href="#org4ff3fdf">2. Sets</a></li>
+<li><a href="#org50a616b">3. Testing sets</a></li>
+<li><a href="#org9aa525e">4. Relations</a></li>
+<li><a href="#orgf29e836">5. Testing relations</a></li>
+<li><a href="#org8714a30">6. Copying </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf5eb64d" class="outline-2">
+<h2 id="orgf5eb64d"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The <code>simple-sets</code> package provides a very simple interface to sets and
+relations.  A set is in essence a list and can be operated on in the same way
+as lists with <code>union</code>, <code>adjoin</code>, etc.  However, when making sets, one specifies
+the test function.  In essence, the only goal of this library is to make sets
+available in such a way that you don't have to specify the test function all
+the time.  The code has been released under the GPLv3 license, see
+Sec. <a href="#org87e87d7">6</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4ff3fdf" class="outline-2">
+<h2 id="org4ff3fdf"><span class="section-number-2">2</span> Sets</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+A simple set is represented by lists and it needs a test function to test for equality.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defclass</span> <span style="color: #228b22;">simple-set</span> ()
+  ((elements <span style="color: #483d8b;">:initarg</span> <span style="color: #483d8b;">:elements</span> <span style="color: #483d8b;">:initform</span> nil <span style="color: #483d8b;">:accessor</span> elements)
+   (test <span style="color: #483d8b;">:initarg</span> <span style="color: #483d8b;">:test</span> <span style="color: #483d8b;">:initform</span> (<span style="color: #ff0000; font-weight: bold;">error</span> <span style="color: #8b2252;">"must supply test function"</span>)
+         <span style="color: #483d8b;">:reader</span> test))
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Represents a set with lists.  It needs a test function to compare elements."</span>))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-set</span> (<span style="color: #228b22;">&amp;key</span> (test #'eq) (elements nil))
+  <span style="color: #8b2252;">"Make a new set"</span>
+  (make-instance 'simple-set <span style="color: #483d8b;">:test</span> test <span style="color: #483d8b;">:elements</span> elements))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">copy-set</span> (set <span style="color: #228b22;">&amp;key</span> (copy-value #'identity))
+  <span style="color: #8b2252;">"Copies a set to a new set."</span>
+  (make-set <span style="color: #483d8b;">:test</span> (test set) <span style="color: #483d8b;">:elements</span> (mapcar copy-value (elements set))))
+</pre>
+</div>
+
+<p>
+The following generic functions are defined in this package to manipulate sets:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">set=</span> (set-1 set-2)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Tests whether sets are equal according to the equality </span>
+<span style="color: #8b2252;">functions of the sets (that have to be equal)."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">add-to-set</span> (element set)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Add an element to a set."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">remove-from-set</span> (element set)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Remove an element from a set."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">add-all-to-set</span> (elements set)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Add all elements to a set."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">union</span> (set1 set2)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Take the union of the two sets."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">difference</span> (set1 set2)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Take the difference of the two sets."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">intersection</span> (set1 set2)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Take the intersection of the two sets."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">contains-p</span> (set element)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Whether element is contained in the set."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">size-set</span> (set)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Returns the size of a set."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">empty-set-p</span> (set)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Returns whether the set is empty."</span>))
+
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">get-element-set</span> (set)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Returns a random element from set."</span>))
+</pre>
+</div>
+
+<p>
+Below, we find the implementations for <code>simple-set</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">set=</span> ((s1 simple-set) (s2 simple-set))
+  (<span style="color: #a020f0;">with-slots</span> ((elements-1 elements) (test-1 test)) s1
+    (<span style="color: #a020f0;">with-slots</span> ((elements-2 elements) (test-2 test)) s2
+      (<span style="color: #ff0000; font-weight: bold;">assert</span> (eq test-1 test-2))
+      (null (set-exclusive-or elements-1 elements-2 <span style="color: #483d8b;">:test</span> test-1)))))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">add-to-set</span> (element (set simple-set))
+  (<span style="color: #a020f0;">with-slots</span> (elements test) set
+    (pushnew element elements <span style="color: #483d8b;">:test</span> test)))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">remove-from-set</span> (element (set simple-set))
+  (<span style="color: #a020f0;">with-slots</span> (elements test) set
+    (alexandria:removef elements element <span style="color: #483d8b;">:test</span> test)))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">add-all-to-set</span> ((elements list) (s simple-set))
+  (<span style="color: #a020f0;">dolist</span> (i elements)
+    (add-to-set i s)))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">union</span> ((s1 simple-set) (s2 simple-set))
+  (<span style="color: #a020f0;">with-slots</span> ((elements-1 elements) (test-1 test)) s1
+    (<span style="color: #a020f0;">with-slots</span> ((elements-2 elements) (test-2 test)) s2
+      (<span style="color: #ff0000; font-weight: bold;">assert</span> (eq test-1 test-2))
+      (make-set <span style="color: #483d8b;">:test</span> test-1 <span style="color: #483d8b;">:elements</span> (cl:union elements-1 elements-2
+                                              <span style="color: #483d8b;">:test</span> test-1)))))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">set-difference</span> ((s1 simple-set) (s2 simple-set))
+  (<span style="color: #a020f0;">with-slots</span> ((elements-1 elements) (test-1 test)) s1
+    (<span style="color: #a020f0;">with-slots</span> ((elements-2 elements) (test-2 test)) s2
+      (<span style="color: #ff0000; font-weight: bold;">assert</span> (eq test-1 test-2))
+      (make-set <span style="color: #483d8b;">:test</span> test-1
+                <span style="color: #483d8b;">:elements</span> (cl:set-difference elements-1
+                                          elements-2 <span style="color: #483d8b;">:test</span> test-1)))))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">intersection</span> ((s1 simple-set) (s2 simple-set))
+  (<span style="color: #a020f0;">with-slots</span> ((elements-1 elements) (test-1 test)) s1
+    (<span style="color: #a020f0;">with-slots</span> ((elements-2 elements) (test-2 test)) s2
+      (<span style="color: #ff0000; font-weight: bold;">assert</span> (eq test-1 test-2))
+      (make-set <span style="color: #483d8b;">:test</span> test-1
+                <span style="color: #483d8b;">:elements</span> (cl:intersection elements-1
+                                        elements-2 <span style="color: #483d8b;">:test</span> test-1)))))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">contains-p</span> ((s simple-set) element)
+  (<span style="color: #a020f0;">with-slots</span> (elements test) s
+    (member element elements <span style="color: #483d8b;">:test</span> test)))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">size-set</span> ((s simple-set))
+  (length (elements s)))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">empty-set-p</span> ((s simple-set))
+  (eql (size-set s) 0))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">get-element-set</span> ((s simple-set))
+  (first (elements s)))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">print-object</span> ((s simple-set) stream)
+  (print-unreadable-object (s stream <span style="color: #483d8b;">:type</span> t)
+    (format stream <span style="color: #8b2252;">"{~{~a~^, ~}}"</span> (elements s))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org50a616b" class="outline-2">
+<h2 id="org50a616b"><span class="section-number-2">3</span> Testing sets</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-lisp">(def-suite simple-sets)
+(in-suite simple-sets)
+
+(test equal-tuple
+  (<span style="color: #a020f0;">let</span> ((s-1 (make-set <span style="color: #483d8b;">:test</span> #'equal))
+        (s-2 (make-set <span style="color: #483d8b;">:test</span> #'equal)))
+    (add-to-set '(1 . 2) s-1)
+    (add-to-set '(2 . 3) s-1)
+    (add-to-set '(2 . 3) s-2)
+    (add-to-set '(1 . 2) s-2)
+    (is (set= s-1 s-2))))
+
+(test equal-number
+  (<span style="color: #a020f0;">let</span> ((s-1 (make-set))
+        (s-2 (make-set)))
+    (add-to-set 1 s-1)
+    (add-to-set 2 s-1)
+    (add-to-set 2 s-2)
+    (add-to-set 1 s-2)
+    (is (set= s-1 s-2))))
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">test-simple-sets</span> ()
+  (run! 'simple-sets))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9aa525e" class="outline-2">
+<h2 id="org9aa525e"><span class="section-number-2">4</span> Relations</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Relations form a small extension to sets.  It is simply a tuple that is
+represented by a <code>cons</code> that is added to a set.  Again, it is necessary to
+provide a <code>test</code> function.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defclass</span> <span style="color: #228b22;">simple-relation</span> (simple-set) ())
+
+(<span style="color: #a020f0;">defun</span> <span style="color: #0000ff;">make-relation</span> (<span style="color: #228b22;">&amp;key</span> (test #'equal))
+  <span style="color: #8b2252;">"Make a relation with test function test that is #'equal by default."</span>
+  (make-instance 'simple-relation <span style="color: #483d8b;">:test</span> test))
+</pre>
+</div>
+
+<p>
+We defined the following generic functions on relations:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">add-to-rel</span> (a b relation)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Make a tuple of a and b and add it to the relation."</span>))
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">add-tuple-to-rel</span> (tuple relation)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Add tuple to the relation."</span>))
+(<span style="color: #a020f0;">defgeneric</span> <span style="color: #0000ff;">subscribe-rel</span> (key relation)
+  (<span style="color: #483d8b;">:documentation</span> <span style="color: #8b2252;">"Get the set of values that relate to key."</span>))
+</pre>
+</div>
+
+<p>
+The implementation:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp">(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">add-to-rel</span> (a b (relation simple-relation))
+  (add-tuple-to-rel (cons a b) relation))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">add-tuple-to-rel</span> (tuple (relation simple-relation))
+  (add-to-set tuple relation))
+
+(<span style="color: #a020f0;">defmethod</span> <span style="color: #0000ff;">subscribe-rel</span> (key (relation simple-relation))
+  (<span style="color: #a020f0;">with-slots</span> (elements test) relation
+    (<span style="color: #a020f0;">let</span> ((set (make-set <span style="color: #483d8b;">:test</span> test)))
+      (add-all-to-set
+       (mapcar #'cdr 
+               (remove-if (complement #'(<span style="color: #a020f0;">lambda</span> (x) (funcall test (car x) key))) elements)) <span style="color: #ff0000; font-weight: bold;">set)</span>
+      set)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf29e836" class="outline-2">
+<h2 id="orgf29e836"><span class="section-number-2">5</span> Testing relations</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-lisp">(in-suite simple-sets)
+
+(test subscription
+  (<span style="color: #a020f0;">let</span> ((relation (make-relation))
+        (result (make-set <span style="color: #483d8b;">:test</span> #'equal)))
+    (add-to-rel 1 2 relation)
+    (add-tuple-to-rel '(1 . 3) relation)
+    (add-to-rel 2 4 relation)
+    (add-to-set 3 result)
+    (add-to-set 2 result)
+    (is (set= (subscribe-rel 1 relation) result))))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8714a30" class="outline-2">
+<h2 id="org8714a30"><span class="section-number-2">6</span> Copying <a id="org87e87d7"></a></h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Set interface based on lists.
+Copyright (C) 2018 Pieter Hijma
+</p>
+
+<p>
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+</p>
+
+<p>
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</p>
+
+<p>
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2019-06-17 Mon 11:54</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
